@@ -1,4 +1,4 @@
-package com.store.controller;
+package com.store.rest;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

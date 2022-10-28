@@ -1,4 +1,4 @@
-package nghiendt;
+package com.store;
 
 //@Configuration
 //public class InterceptorConfig implements WebMvcConfigurer {

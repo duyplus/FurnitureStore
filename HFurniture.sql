@@ -1,8 +1,8 @@
 USE master
 go
-CREATE DATABASE HFurniture
+CREATE DATABASE FurnitureStore
 go
-USE HFurniture
+USE FurnitureStore
 go
 CREATE TABLE Categories (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
