@@ -48,7 +48,7 @@ CREATE TABLE staffs (
 	active tinyint NOT NULL,
 	store_id INT NOT NULL,
 	manager_id INT
-	-- Manage ID: null = Director; 1 = Staff
+	-- Manage ID: 0 = Director; 1 = Staff
 );
 CREATE TABLE orders (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
