@@ -1,17 +1,9 @@
 package com.store.controller;
 
-import com.store.entity.Customer;
 import com.store.service.CustomerService;
 import com.store.service.MailerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class AuthController {
@@ -21,44 +13,44 @@ public class AuthController {
 	@Autowired
 	MailerService mailer;
 
-	@CrossOrigin("*")
-	@ResponseBody
-	@RequestMapping("/rest/auth/authentication")
-	public Object getAuthentication(HttpSession session) {
-		return session.getAttribute("authentication");
-	}
-
-	@RequestMapping("/auth/login/form")
-	public String logInForm(Model model, @ModelAttribute("customer") Customer customer) {
-		return "auth/login";
-	}
-
-	@RequestMapping("/auth/login/success")
-	public String logInSuccess(Model model, @ModelAttribute("account") Customer customer) {
-		model.addAttribute("message", "Logged in successfully");
-		return "redirect:/index";
-	}
-
-	@RequestMapping("/auth/login/error")
-	public String logInError(Model model, @Validated @ModelAttribute("account") Customer customer, Errors errors) {
-		if (errors.hasErrors()) {
-			model.addAttribute("message", "Wrong login information!");
-			return "auth/login";
-		}
-		return "auth/login";
-	}
-
-	@RequestMapping("/auth/unauthoried")
-	public String unauthoried(Model model, @ModelAttribute("account") Customer customer) {
-		model.addAttribute("message", "You don't have access!");
-		return "auth/login";
-	}
-
-	@RequestMapping("/auth/logout/success")
-	public String logOutSuccess(Model model, @ModelAttribute("account") Customer customer) {
-		model.addAttribute("message", "You are logged out!");
-		return "auth/login";
-	}
+//	@CrossOrigin("*")
+//	@ResponseBody
+//	@RequestMapping("/rest/auth/authentication")
+//	public Object getAuthentication(HttpSession session) {
+//		return session.getAttribute("authentication");
+//	}
+//
+//	@RequestMapping("/auth/login/form")
+//	public String logInForm(Model model, @ModelAttribute("customer") Customer customer) {
+//		return "auth/login";
+//	}
+//
+//	@RequestMapping("/auth/login/success")
+//	public String logInSuccess(Model model, @ModelAttribute("account") Customer customer) {
+//		model.addAttribute("message", "Logged in successfully");
+//		return "redirect:/index";
+//	}
+//
+//	@RequestMapping("/auth/login/error")
+//	public String logInError(Model model, @Validated @ModelAttribute("account") Customer customer, Errors errors) {
+//		if (errors.hasErrors()) {
+//			model.addAttribute("message", "Wrong login information!");
+//			return "auth/login";
+//		}
+//		return "auth/login";
+//	}
+//
+//	@RequestMapping("/auth/unauthoried")
+//	public String unauthoried(Model model, @ModelAttribute("account") Customer customer) {
+//		model.addAttribute("message", "You don't have access!");
+//		return "auth/login";
+//	}
+//
+//	@RequestMapping("/auth/logout/success")
+//	public String logOutSuccess(Model model, @ModelAttribute("account") Customer customer) {
+//		model.addAttribute("message", "You are logged out!");
+//		return "auth/login";
+//	}
 
 	// OAuth2
 //	@RequestMapping("/oauth2/login/success")
@@ -67,26 +59,24 @@ public class AuthController {
 //		return "forward:/auth/login/success";
 //	}
 
-	@GetMapping("/auth/register")
-	public String signUpForm(Model model) {
-		model.addAttribute("account", new Customer());
-		return "auth/register";
-	}
-
-	@PostMapping("/auth/register")
-	public String signUpSuccess(Model model, @Validated @ModelAttribute("account") Customer customer, Errors error,
-			HttpServletResponse response) {
-		if (error.hasErrors()) {
-			model.addAttribute("message", "Please correct the error below!");
-			return "auth/register";
-		}
-//		customer.setPhoto("user.png");
-//		customer.setToken("token");
-		customerService.create(customer);
-		model.addAttribute("message", "New account registration successful!");
-		response.addHeader("refresh", "2;url=/auth/login/form");
-		return "auth/register";
-	}
+//	@GetMapping("/auth/register")
+//	public String signUpForm(Model model) {
+//		model.addAttribute("account", new Customer());
+//		return "auth/register";
+//	}
+//
+//	@PostMapping("/auth/register")
+//	public String signUpSuccess(Model model, @Validated @ModelAttribute("account") Customer customer, Errors error,
+//			HttpServletResponse response) {
+//		if (error.hasErrors()) {
+//			model.addAttribute("message", "Please correct the error below!");
+//			return "auth/register";
+//		}
+//		customerService.create(customer);
+//		model.addAttribute("message", "New account registration successful!");
+//		response.addHeader("refresh", "2;url=/auth/login/form");
+//		return "auth/register";
+//	}
 
 //	@GetMapping("/auth/forgot-password")
 //	public String forgotPasswordForm(Model model) {
