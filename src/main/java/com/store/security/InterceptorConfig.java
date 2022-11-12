@@ -12,7 +12,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
     GlobalInterceptor globalInterceptor;
-    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {"classpath:/resources/", "classpath:/static/", "classpath:/pages/"};
+    private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {"classpath:/resources/", "classpath:/static/"};
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
