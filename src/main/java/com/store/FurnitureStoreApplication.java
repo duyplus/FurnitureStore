@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 @SpringBootApplication
 @EnableScheduling
-@OpenAPIDefinition(info = @Info(title = "NghienDT OpenAPI", version = "2.0", description = "A powerful yet easy-to-use suite of API developer tools."))
+@OpenAPIDefinition(info = @Info(title = "H Furniture OpenAPI", version = "2.0", description = "A powerful yet easy-to-use suite of API developer tools."))
 public class FurnitureStoreApplication extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

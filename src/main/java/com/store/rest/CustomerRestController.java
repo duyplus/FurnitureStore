@@ -48,9 +48,9 @@ public class CustomerRestController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable int id) {
-        Customer customer = customerRepository.findById(id)
+        Customer findId = customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not exist with id: " + id));
-        customerRepository.delete(customer);
+        customerRepository.delete(findId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

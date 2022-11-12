@@ -64,7 +64,7 @@ public class WebSecurityConfig {
 
 //    @Bean
 //    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**", "/admin/**", "/assets/**", "/assets/**/**");
+//        return (web) -> web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**", "/admin/**", "/assets/**", "/assetss/**");
 //    }
 
     @Bean
@@ -72,7 +72,7 @@ public class WebSecurityConfig {
         http.cors().configurationSource(corsConfigurationSource()).and().csrf().disable();
         http.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll();
         http.authorizeRequests()
-                .antMatchers("/**", "/admin/**", "/auth/**", "/api/**", "/api/**/**").permitAll()
+                .antMatchers("/**", "/admin/**", "/auth/**", "/api/**").permitAll()
                 .anyRequest().authenticated();
 //        http.exceptionHandling().authenticationEntryPoint(jwtAuthentication);
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
