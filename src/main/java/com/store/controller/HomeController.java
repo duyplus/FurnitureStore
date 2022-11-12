@@ -3,11 +3,7 @@ package com.store.controller;
 import com.store.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
@@ -15,8 +11,8 @@ public class HomeController {
     @Autowired
     ProductRepository productRepository;
 
-    @RequestMapping({"/", "/index"})
-    public String home(Model model, @RequestParam("cid") Optional<String> cid) {
+    @GetMapping({"/", "index"})
+    public String home() { //Model model, @RequestParam("cid") Optional<String> cid
 //        List<Product> list;
 //        if (cid.isPresent()) {
 //            list = productRepository.findByCategoryId(cid.get());
@@ -27,17 +23,17 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping({"/admin", "/admin/index"})
-    public String admin(Model model) {
+    @GetMapping({"admin", "admin/index"})
+    public String admin() {
         return "redirect:/admin/index.html";
     }
 
-    @RequestMapping("about")
+    @GetMapping("about")
     public String about() {
         return "about";
     }
 
-    @RequestMapping("contact")
+    @GetMapping("contact")
     public String contact() {
         return "contact";
     }
