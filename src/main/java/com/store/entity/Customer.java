@@ -3,6 +3,7 @@ package com.store.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +24,7 @@ public class Customer {
 
     @Size(max = 255)
     @NotNull
+    @Nationalized
     @Column(name = "fullname", nullable = false)
     private String fullname;
 
@@ -37,18 +39,21 @@ public class Customer {
     private String email;
 
     @Size(max = 255)
+    @Nationalized
     @Column(name = "street")
     private String street;
 
     @Size(max = 100)
+    @Nationalized
     @Column(name = "city", length = 100)
     private String city;
 
-    @Size(max = 25)
-    @Column(name = "state", length = 25)
+    @Size(max = 30)
+    @Nationalized
+    @Column(name = "state", length = 30)
     private String state;
 
-    @Size(max = 5)
-    @Column(name = "zip_code", length = 5)
+    @Size(max = 6)
+    @Column(name = "zip_code", length = 6)
     private String zipCode;
 }

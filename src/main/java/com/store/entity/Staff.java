@@ -1,9 +1,9 @@
 package com.store.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,6 +21,7 @@ public class Staff {
 
     @Size(max = 255)
     @NotNull
+    @Nationalized
     @Column(name = "fullname", nullable = false)
     private String fullname;
 
@@ -41,7 +42,6 @@ public class Staff {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private Staff manager;
+    @Column(name = "manager_id")
+    private Integer managerId;
 }

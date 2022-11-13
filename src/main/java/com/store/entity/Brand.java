@@ -1,9 +1,9 @@
 package com.store.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +24,7 @@ public class Brand {
 
     @Size(max = 255)
     @NotNull
+    @Nationalized
     @Column(name = "name", nullable = false)
     private String name;
 }

@@ -12,19 +12,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "stocks")
 public class Stock {
-    @EmbeddedId
-    private StockId id;
-
-    @MapsId("storeId")
-    @ManyToOne
-    @JoinColumn(name = "store_id", nullable = false)
-    private Store store;
-
-    @MapsId("productId")
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @Id
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
     @Column(name = "quantity")
     private Integer quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

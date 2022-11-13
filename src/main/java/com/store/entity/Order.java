@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-
+import java.time.Instant;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,19 +20,12 @@ public class Order {
     @Column(name = "status", columnDefinition = "tinyint not null")
     private Short status;
 
-    @Temporal(TemporalType.DATE)
     @NotNull
     @Column(name = "order_date", nullable = false)
-    private Date orderDate;
+    private Instant orderDate;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "shipped_date")
-    private Date shippedDate;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    private Instant shippedDate;
 
     @NotNull
     @ManyToOne
@@ -44,4 +36,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 }

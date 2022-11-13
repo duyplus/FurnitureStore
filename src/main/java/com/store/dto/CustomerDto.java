@@ -1,6 +1,5 @@
 package com.store.dto;
 
-import com.store.entity.Store;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,22 +8,27 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
- * A DTO for the {@link com.store.entity.Staff} entity
+ * A DTO for the {@link com.store.entity.Customer} entity
  */
 @AllArgsConstructor
 @Getter
-public class StaffDto implements Serializable {
+public class CustomerDto implements Serializable {
     private final Integer id;
     @Size(max = 255)
     @NotNull
     private final String fullname;
+    @Size(max = 15)
+    @NotNull
+    private final String phone;
     @Size(max = 255)
     @NotNull
     private final String email;
-    @Size(max = 15)
-    private final String phone;
-    private final Short active;
-    @NotNull
-    private final Store store;
-    private final Integer managerId;
+    @Size(max = 255)
+    private final String street;
+    @Size(max = 100)
+    private final String city;
+    @Size(max = 30)
+    private final String state;
+    @Size(max = 6)
+    private final String zipCode;
 }

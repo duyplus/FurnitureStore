@@ -1,9 +1,9 @@
 package com.store.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,6 +22,7 @@ public class Product {
 
     @Size(max = 255)
     @NotNull
+    @Nationalized
     @Column(name = "name", nullable = false)
     private String name;
 
