@@ -1,12 +1,13 @@
 package com.store.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.time.Instant;
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,24 +21,24 @@ public class Order {
     @Column(name = "status", columnDefinition = "tinyint not null")
     private Short status;
 
-    @NotNull
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "order_date", nullable = false)
-    private Instant orderDate;
+    private Date orderDate;
 
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "shipped_date")
-    private Instant shippedDate;
+    private Date shippedDate;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;

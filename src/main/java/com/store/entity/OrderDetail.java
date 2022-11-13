@@ -30,12 +30,10 @@ public class OrderDetail {
     @Column(name = "discount", nullable = false, precision = 4, scale = 2)
     private BigDecimal discount;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;

@@ -34,12 +34,10 @@ public class Product {
     @Column(name = "list_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal listPrice;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;

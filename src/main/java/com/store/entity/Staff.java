@@ -37,11 +37,10 @@ public class Staff {
     @Column(name = "active", columnDefinition = "tinyint not null")
     private Short active;
 
-    @NotNull
+    @Column(name = "manager_id")
+    private Integer managerId;
+
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
-
-    @Column(name = "manager_id")
-    private Integer managerId;
 }
