@@ -13,8 +13,14 @@ import java.io.Serializable;
  */
 @AllArgsConstructor
 @Getter
-public class StaffDto implements Serializable {
+public class StaffDTO implements Serializable {
     private final Integer id;
+    @Size(max = 100)
+    @NotNull
+    private final String username;
+    @Size(max = 255)
+    @NotNull
+    private final String password;
     @Size(max = 255)
     @NotNull
     private final String fullname;

@@ -1,7 +1,5 @@
 package com.store.service;
 
-import com.store.entity.Staff;
-
 import java.util.List;
 
 public interface StaffService {

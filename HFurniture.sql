@@ -22,13 +22,16 @@ CREATE TABLE products (
 );
 CREATE TABLE customers (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
+	username NVARCHAR (100) NOT NULL,
+	password NVARCHAR (255) NOT NULL,
 	fullname NVARCHAR (255) NOT NULL,
 	phone VARCHAR (15) NOT NULL,
 	email VARCHAR (255) NOT NULL,
+	birthday DATE,
 	street NVARCHAR (255),
 	city NVARCHAR (100),
-	state NVARCHAR (30),
-	zip_code VARCHAR (6)
+	image NVARCHAR(255),
+	token VARCHAR (20)
 );
 CREATE TABLE stores (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
@@ -42,6 +45,8 @@ CREATE TABLE stores (
 );
 CREATE TABLE staffs (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
+	username NVARCHAR (100) NOT NULL,
+	password NVARCHAR (255) NOT NULL,
 	fullname NVARCHAR (255) NOT NULL,
 	email VARCHAR (255) NOT NULL UNIQUE,
 	phone VARCHAR (15),
@@ -65,6 +70,7 @@ CREATE TABLE order_details (
 	quantity INT NOT NULL,
 	list_price DECIMAL (10, 2) NOT NULL,
 	discount DECIMAL (4, 2) NOT NULL DEFAULT 0,
+	description NVARCHAR (MAX),
 	order_id INT NOT NULL,
 	product_id INT NOT NULL
 );
@@ -76,141 +82,142 @@ CREATE TABLE stocks (
 );
 GO
 
-SET IDENTITY_INSERT categories ON
-insert into categories (id, name) values (1, 'Highlander')
-insert into categories (id, name) values (2, 'Spectra')
-insert into categories (id, name) values (3, 'Firefly')
-insert into categories (id, name) values (4, 'Expedition')
-insert into categories (id, name) values (5, 'Cabriolet')
-insert into categories (id, name) values (6, 'Crossfire')
-insert into categories (id, name) values (7, 'Savana')
-insert into categories (id, name) values (8, 'Corvette')
-insert into categories (id, name) values (9, 'Impreza')
-insert into categories (id, name) values (10, 'Bravada')
+SET IDENTITY_INSERT categories ON 
+INSERT categories (id, name) VALUES (1, N'Highlander')
+INSERT categories (id, name) VALUES (2, N'Spectra')
+INSERT categories (id, name) VALUES (3, N'Firefly')
+INSERT categories (id, name) VALUES (4, N'Expedition')
+INSERT categories (id, name) VALUES (5, N'Cabriolet')
+INSERT categories (id, name) VALUES (6, N'Crossfire')
+INSERT categories (id, name) VALUES (7, N'Savana')
+INSERT categories (id, name) VALUES (8, N'Corvette')
+INSERT categories (id, name) VALUES (9, N'Impreza')
+INSERT categories (id, name) VALUES (10, N'Bravada')
 SET IDENTITY_INSERT categories OFF
 
-SET IDENTITY_INSERT brands ON
-insert into brands (id, name) values (1, 'Volkswagen');
-insert into brands (id, name) values (2, 'Lexus');
-insert into brands (id, name) values (3, 'Cadillac');
-insert into brands (id, name) values (4, 'Hyundai');
-insert into brands (id, name) values (5, 'Mitsubishi');
-insert into brands (id, name) values (6, 'Mitsubishi');
-insert into brands (id, name) values (7, 'Volvo');
-insert into brands (id, name) values (8, 'Buick');
-insert into brands (id, name) values (9, 'Volkswagen');
-insert into brands (id, name) values (10, 'Isuzu');
+SET IDENTITY_INSERT brands ON 
+INSERT brands (id, name) VALUES (1, N'Volkswagen')
+INSERT brands (id, name) VALUES (2, N'Lexus')
+INSERT brands (id, name) VALUES (3, N'Cadillac')
+INSERT brands (id, name) VALUES (4, N'Hyundai')
+INSERT brands (id, name) VALUES (5, N'Mitsubishi')
+INSERT brands (id, name) VALUES (6, N'Mitsubishi')
+INSERT brands (id, name) VALUES (7, N'Volvo')
+INSERT brands (id, name) VALUES (8, N'Buick')
+INSERT brands (id, name) VALUES (9, N'Volkswagen')
+INSERT brands (id, name) VALUES (10, N'Isuzu')
 SET IDENTITY_INSERT brands OFF
 
-SET IDENTITY_INSERT products ON
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (1, 'Spermophilus richardsonii', 2000, 16933060, 9, 6);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (2, 'Macropus rufogriseus', 2011, 32138296, 9, 9);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (3, 'Butorides striatus', 2006, 84596335, 2, 9);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (4, 'Eolophus roseicapillus', 1997, 12042220, 3, 7);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (5, 'Climacteris melanura', 2011, 5703366, 7, 3);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (6, 'Bassariscus astutus', 2010, 81106774, 10, 2);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (7, 'Otocyon megalotis', 2009, 82788178, 9, 5);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (8, 'Coracias caudata', 2004, 71063447, 8, 1);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (9, 'Certotrichas paena', 1994, 29597449, 10, 8);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (10, 'Heloderma horridum', 1997, 97769100, 4, 6);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (11, 'Herpestes javanicus', 1997, 86383925, 2, 4);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (12, 'Paraxerus cepapi', 1960, 37855270, 8, 6);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (13, 'Anser caerulescens', 1993, 74105793, 2, 3);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (14, 'Philetairus socius', 1987, 25692703, 9, 6);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (15, 'Colobus guerza', 1955, 90361142, 4, 4);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (16, 'Leprocaulinus vipera', 1997, 70613114, 6, 1);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (17, 'Irania gutteralis', 2009, 98645184, 10, 1);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (18, 'Canis lupus lycaon', 2001, 78187960, 8, 5);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (19, 'Oryx gazella', 1989, 50174632, 2, 9);
-insert into products (id, name, model_year, list_price, brand_id, category_id) values (20, 'Vulpes chama', 1988, 82433783, 6, 8);
+SET IDENTITY_INSERT products ON 
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (1, N'Spermophilus richardsonii', 2000, CAST(16933060.00 AS Decimal(10, 2)), 9, 6)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (2, N'Macropus rufogriseus', 2011, CAST(32138296.00 AS Decimal(10, 2)), 9, 9)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (3, N'Butorides striatus', 2006, CAST(84596335.00 AS Decimal(10, 2)), 2, 9)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (4, N'Eolophus roseicapillus', 1997, CAST(12042220.00 AS Decimal(10, 2)), 3, 7)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (5, N'Climacteris melanura', 2011, CAST(5703366.00 AS Decimal(10, 2)), 7, 3)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (6, N'Bassariscus astutus', 2010, CAST(81106774.00 AS Decimal(10, 2)), 10, 2)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (7, N'Otocyon megalotis', 2009, CAST(82788178.00 AS Decimal(10, 2)), 9, 5)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (8, N'Coracias caudata', 2004, CAST(71063447.00 AS Decimal(10, 2)), 8, 1)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (9, N'Certotrichas paena', 1994, CAST(29597449.00 AS Decimal(10, 2)), 10, 8)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (10, N'Heloderma horridum', 1997, CAST(97769100.00 AS Decimal(10, 2)), 4, 6)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (11, N'Herpestes javanicus', 1997, CAST(86383925.00 AS Decimal(10, 2)), 2, 4)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (12, N'Paraxerus cepapi', 1960, CAST(37855270.00 AS Decimal(10, 2)), 8, 6)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (13, N'Anser caerulescens', 1993, CAST(74105793.00 AS Decimal(10, 2)), 2, 3)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (14, N'Philetairus socius', 1987, CAST(25692703.00 AS Decimal(10, 2)), 9, 6)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (15, N'Colobus guerza', 1955, CAST(90361142.00 AS Decimal(10, 2)), 4, 4)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (16, N'Leprocaulinus vipera', 1997, CAST(70613114.00 AS Decimal(10, 2)), 6, 1)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (17, N'Irania gutteralis', 2009, CAST(98645184.00 AS Decimal(10, 2)), 10, 1)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (18, N'Canis lupus lycaon', 2001, CAST(78187960.00 AS Decimal(10, 2)), 8, 5)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (19, N'Oryx gazella', 1989, CAST(50174632.00 AS Decimal(10, 2)), 2, 9)
+INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (20, N'Vulpes chama', 1988, CAST(82433783.00 AS Decimal(10, 2)), 6, 8)
 SET IDENTITY_INSERT products OFF
 
-SET IDENTITY_INSERT customers ON
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(1,'Colin Anthony','0580301436','colinanthony@google.com','3188 Feugiat. Road','Bình Phước','South Korea','254403');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(2,'Michelle Wallace','0438305787','michellewallace@yahoo.com','9762 Dui Road','Đắk Nông','United States','333058');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(3,'Wyoming Jacobs','0727425146','wyomingjacobs9494@yahoo.com','721 Eget Rd.','Bình Dương','United States','747188');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(4,'Amy Vincent','0905432692','amyvincent@yahoo.com','705-772 Per Av.','Sóc Trăng','Vietnam','784465');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(5,'Selma Whitaker','0806514932','selmawhitaker4705@google.com','7828 Vestibulum Ave','Cần Thơ','United States','786231');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(6,'Maile Sargent','0186181326','mailesargent4847@google.com','975-4947 Iaculis Street','Hậu Giang','China','831743');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(7,'Kessie Welch','0732975361','kessiewelch@yahoo.com','863-951 Eleifend Rd.','Bắc Kạn','Vietnam','844292');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(8,'Roary Fleming','0278246592','roaryfleming4304@google.com','P.O. Box 523, 849 Purus, Ave','Ninh Thuận','Vietnam','724449');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(9,'Nevada Rich','0628543441','nevadarich@google.com','8871 Aliquam Avenue','Phú Yên','United States','261704');
-INSERT INTO customers (id,fullname,phone,email,street,city,state,zip_code) VALUES(10,'Isabelle Potts','0228149711','isabellepotts@google.com','917-5078 Nisi. Street','Quảng Nam','South Korea','951461');
+SET IDENTITY_INSERT customers ON 
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (1, N'Colin Anthony', N'duyplus', N'123', N'0580301436', N'duyplus0909@gmail.com', CAST(N'1999-08-22' AS Date), N'3188 Feugiat. Road', N'Bình Phu?c', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (2, N'Michelle Wallace', N'michellewallace', N'123', N'0438305787', N'michellewallace@yahoo.com', CAST(N'2000-11-02' AS Date), N'9762 Dui Road', N'Ð?k Nông', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (3, N'Wyoming Jacobs', N'wyomingjacobs', N'123', N'0727425146', N'wyomingjacobs9494@yahoo.com', CAST(N'2001-04-20' AS Date), N'721 Eget Rd.', N'Bình Duong', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (4, N'Amy Vincent', N'amyvincent', N'123', N'0905432692', N'amyvincent@yahoo.com', CAST(N'1998-12-17' AS Date), N'705-772 Per Av.', N'Sóc Trang', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (5, N'Selma Whitaker', N'selmawhitaker', N'123', N'0806514932', N'selmawhitaker4705@gmail.com', CAST(N'1995-02-12' AS Date), N'7828 Vestibulum Ave', N'C?n Tho', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (6, N'Maile Sargent', N'mailesargent', N'123', N'0186181326', N'mailesargent4847@google.com', CAST(N'2002-11-23' AS Date), N'975-4947 Iaculis Street', N'H?u Giang', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (7, N'Kessie Welch', N'kessiewelch', N'123', N'0732975361', N'kessiewelch@yahoo.com', CAST(N'2000-09-12' AS Date), N'863-951 Eleifend Rd.', N'B?c K?n', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (8, N'Roary Fleming', N'roaryfleming', N'123', N'0278246592', N'roaryfleming4304@gmail.com', CAST(N'2003-11-12' AS Date), N'P.O. Box 523, 849 Purus, Ave', N'Ninh Thu?n', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (9, N'Nevada Rich', N'nevadarich', N'123', N'0628543441', N'nevadarich@gmail.com', CAST(N'1997-05-08' AS Date), N'8871 Aliquam Avenue', N'Phú Yên', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (10, N'Isabelle Potts', N'isabellepotts', N'123', N'0228149711', N'isabellepotts@gmail.com', CAST(N'1994-06-22' AS Date), N'917-5078 Nisi. Street', N'Qu?ng Nam', N'avt.png', NULL)
 SET IDENTITY_INSERT customers OFF
 
-SET IDENTITY_INSERT stores ON
-INSERT INTO stores (id,name,phone,email,street,city,state,zip_code) VALUES(1,'Ali Randall','0412142332','alirandall7363@google.com','142-467 Lectus Rd.','Bắc Kạn','China','862643');
-INSERT INTO stores (id,name,phone,email,street,city,state,zip_code) VALUES(2,'Driscoll Jacobs','0716567033','driscolljacobs9852@outlook.com','580-6204 Aliquet Street','Vĩnh Phúc','United States','276058');
-INSERT INTO stores (id,name,phone,email,street,city,state,zip_code) VALUES(3,'Tasha Nieves','0454424682','tashanieves7977@google.com','P.O. Box 651, 4952 Sed St.','Thừa Thiên–Huế','South Korea','382737');
-INSERT INTO stores (id,name,phone,email,street,city,state,zip_code) VALUES(4,'Yen Knight','0064324615','yenknight@outlook.com','P.O. Box 470, 769 At St.','Bạc Liêu','South Korea','288526');
-INSERT INTO stores (id,name,phone,email,street,city,state,zip_code) VALUES(5,'Chiquita Cox','0338988834','chiquitacox@yahoo.com','1961 Dignissim. Rd.','Yên Bái','Vietnam','949459');
+SET IDENTITY_INSERT stores ON 
+INSERT stores (id, name, phone, email, street, city, state, zip_code) VALUES (1, N'Store 1', N'0812142332', N'store1@hfurniture.com', N'32 Tr?n Duy Hung', N'Hà N?i', N'Vietnam', N'862643')
+INSERT stores (id, name, phone, email, street, city, state, zip_code) VALUES (2, N'Store 2', N'0716567033', N'store2@hfurniture.com', N'181 Tr?n Hung Ð?o', N'Phan Thi?t', N'Vietnam', N'276058')
+INSERT stores (id, name, phone, email, street, city, state, zip_code) VALUES (3, N'Store 3', N'0254424682', N'store3@hfurniture.com', N'45 Nguy?n Ðình Chi?u', N'Tây Ninh', N'Vietnam', N'382737')
+INSERT stores (id, name, phone, email, street, city, state, zip_code) VALUES (4, N'Store 4', N'0964324615', N'store4@hfurniture.com', N'81 Phan Ðình Phùng', N'Biên Hoà', N'Vietnam', N'288526')
+INSERT stores (id, name, phone, email, street, city, state, zip_code) VALUES (5, N'Store 5', N'0738988834', N'store5@hfurniture.com', N'140 Hu?nh Van Bánh', N'H? Chí Minh', N'Vietnam', N'949459')
 SET IDENTITY_INSERT stores OFF
 
-SET IDENTITY_INSERT staffs ON
-INSERT INTO staffs (id,fullname,phone,email,active,store_id,manager_id) VALUES(1,'Ali Randall','0412142332','alirandall7363@google.com',1,3,0);
-INSERT INTO staffs (id,fullname,phone,email,active,store_id,manager_id) VALUES(2,'Driscoll Jacobs','0716567033','driscolljacobs9852@outlook.com',2,1,1);
-INSERT INTO staffs (id,fullname,phone,email,active,store_id,manager_id) VALUES(3,'Tasha Nieves','0454424682','tashanieves7977@google.com',3,4,1);
-INSERT INTO staffs (id,fullname,phone,email,active,store_id,manager_id) VALUES(4,'Yen Knight','0064324615','yenknight@outlook.com',1,3,0);
-INSERT INTO staffs (id,fullname,phone,email,active,store_id,manager_id) VALUES(5,'Chiquita Cox','0338988834','chiquitacox@yahoo.com',2,5,1);
+SET IDENTITY_INSERT staffs ON 
+INSERT staffs (id, username, password, fullname, email, phone, active, store_id, manager_id) VALUES (1, N'admin', N'123', N'Nguy?n Van Admin', N'duyplusdz@gmail.com', N'0123456789', 1, 3, 0)
+INSERT staffs (id, username, password, fullname, email, phone, active, store_id, manager_id) VALUES (2, N'hoangduy', N'123', N'Nguy?n Hoàng Duy', N'alirandall7363@gmail.com', N'0919993715', 1, 3, 1)
+INSERT staffs (id, username, password, fullname, email, phone, active, store_id, manager_id) VALUES (3, N'ducduy', N'123', N'Nguy?n Ð?c Duy', N'driscolljacobs9852@gmail.com', N'0716567033', 2, 1, 1)
+INSERT staffs (id, username, password, fullname, email, phone, active, store_id, manager_id) VALUES (4, N'huyphi', N'123', N'Duong Huy Phi', N'tashanieves7977@gmail.com', N'0454424682', 3, 4, 1)
+INSERT staffs (id, username, password, fullname, email, phone, active, store_id, manager_id) VALUES (5, N'honglinh', N'123', N'Ngô H?ng Linh', N'yenknight@outlook.com', N'0064324615', 1, 3, 1)
+INSERT staffs (id, username, password, fullname, email, phone, active, store_id, manager_id) VALUES (6, N'khangtran', N'123', N'Tr?n Khang', N'chiquitacox@yahoo.com', N'0338988834', 2, 5, 1)
 SET IDENTITY_INSERT staffs OFF
 
-SET IDENTITY_INSERT orders ON
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(1,4,'2022-12-20 20:14','2022-11-22 19:49',3,2,3)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(2,2,'2022-12-23 00:17','2022-11-18 19:34',2,3,6)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(3,2,'2022-12-01 03:03','2022-12-26 14:23',3,1,9)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(4,2,'2022-11-14 06:01','2022-11-10 01:07',3,4,5)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(5,3,'2022-11-03 22:13','2022-11-13 01:02',3,1,7)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(6,4,'2022-11-08 01:43','2022-11-18 22:48',4,5,8)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(7,3,'2022-11-10 16:51','2022-12-21 14:39',4,5,2)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(8,3,'2022-12-23 11:35','2022-12-04 08:38',1,2,4)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(9,3,'2022-11-16 01:30','2022-11-24 21:58',4,2,8)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(10,2,'2022-12-29 19:12','2022-11-07 14:52',5,2,7)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(11,4,'2022-12-20 20:14','2022-11-22 19:49',3,2,3)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(12,2,'2022-12-23 00:17','2022-11-18 19:34',2,3,6)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(13,2,'2022-12-01 03:03','2022-12-26 14:23',3,1,9)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(14,2,'2022-11-14 06:01','2022-11-10 01:07',3,4,5)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(15,3,'2022-11-03 22:13','2022-11-13 01:02',3,1,7)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(16,4,'2022-11-08 01:43','2022-11-18 22:48',4,5,8)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(17,3,'2022-11-10 16:51','2022-12-21 14:39',4,5,2)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(18,3,'2022-12-23 11:35','2022-12-04 08:38',1,2,4)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(19,3,'2022-11-16 01:30','2022-11-24 21:58',4,2,8)
-INSERT INTO orders (id,status,order_date,shipped_date,store_id,staff_id,customer_id) VALUES(20,2,'2022-12-29 19:12','2022-11-07 14:52',5,2,7)
+SET IDENTITY_INSERT orders ON 
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (1, 4, CAST(N'2022-11-20 20:14:00.000' AS DateTime), CAST(N'2022-11-22 19:49:00.000' AS DateTime), 3, 2, 3)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (2, 2, CAST(N'2022-11-23 00:17:00.000' AS DateTime), CAST(N'2022-11-24 19:34:00.000' AS DateTime), 2, 3, 6)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (3, 2, CAST(N'2022-11-01 03:03:00.000' AS DateTime), CAST(N'2022-11-05 14:23:00.000' AS DateTime), 3, 1, 9)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (4, 2, CAST(N'2022-11-14 06:01:00.000' AS DateTime), CAST(N'2022-11-10 01:07:00.000' AS DateTime), 3, 4, 5)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (5, 3, CAST(N'2022-11-03 22:13:00.000' AS DateTime), CAST(N'2022-11-13 01:02:00.000' AS DateTime), 3, 1, 7)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (6, 4, CAST(N'2022-11-08 01:43:00.000' AS DateTime), CAST(N'2022-11-18 22:48:00.000' AS DateTime), 4, 5, 8)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (7, 3, CAST(N'2022-11-10 16:51:00.000' AS DateTime), CAST(N'2022-12-21 14:39:00.000' AS DateTime), 4, 5, 2)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (8, 3, CAST(N'2022-12-23 11:35:00.000' AS DateTime), CAST(N'2022-12-04 08:38:00.000' AS DateTime), 1, 2, 4)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (9, 3, CAST(N'2022-11-16 01:30:00.000' AS DateTime), CAST(N'2022-11-24 21:58:00.000' AS DateTime), 4, 2, 8)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (10, 2, CAST(N'2022-12-05 19:12:00.000' AS DateTime), CAST(N'2022-12-07 14:52:00.000' AS DateTime), 5, 2, 7)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (11, 4, CAST(N'2022-12-20 20:14:00.000' AS DateTime), CAST(N'2022-12-22 19:49:00.000' AS DateTime), 3, 2, 3)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (12, 2, CAST(N'2022-12-23 00:17:00.000' AS DateTime), CAST(N'2022-12-27 19:34:00.000' AS DateTime), 2, 3, 6)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (13, 2, CAST(N'2022-12-01 03:03:00.000' AS DateTime), CAST(N'2022-12-06 14:23:00.000' AS DateTime), 3, 1, 9)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (14, 2, CAST(N'2022-11-14 06:01:00.000' AS DateTime), CAST(N'2022-11-10 01:07:00.000' AS DateTime), 3, 4, 5)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (15, 3, CAST(N'2022-11-03 22:13:00.000' AS DateTime), CAST(N'2022-11-13 01:02:00.000' AS DateTime), 3, 1, 7)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (16, 4, CAST(N'2022-11-08 01:43:00.000' AS DateTime), CAST(N'2022-11-18 22:48:00.000' AS DateTime), 4, 5, 8)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (17, 3, CAST(N'2022-11-10 16:51:00.000' AS DateTime), CAST(N'2022-11-21 14:39:00.000' AS DateTime), 4, 5, 2)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (18, 3, CAST(N'2022-12-23 11:35:00.000' AS DateTime), CAST(N'2022-12-25 08:38:00.000' AS DateTime), 1, 2, 4)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (19, 3, CAST(N'2022-11-16 01:30:00.000' AS DateTime), CAST(N'2022-11-24 21:58:00.000' AS DateTime), 4, 2, 8)
+INSERT orders (id, status, order_date, shipped_date, store_id, staff_id, customer_id) VALUES (20, 2, CAST(N'2022-12-21 19:12:00.000' AS DateTime), CAST(N'2022-12-23 14:52:00.000' AS DateTime), 5, 2, 7)
 SET IDENTITY_INSERT orders OFF
 
-SET IDENTITY_INSERT order_details ON
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(1,20,95341098,22,6,4)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(2,62,49133320,14,8,9)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(3,24,28056384,19,11,9)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(4,46,1989046,25,18,19)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(5,8,93968244,13,4,2)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(6,94,76516669,26,9,13)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(7,87,42893123,24,17,5)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(8,46,55214364,29,14,18)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(9,84,15686824,26,17,8)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(10,100,23749781,18,12,5)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(11,20,95341098,22,6,4)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(12,62,49133320,14,8,9)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(13,24,28056384,19,11,9)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(14,46,1989046,25,18,19)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(15,8,93968244,13,4,2)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(16,94,76516669,26,20,13)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(17,87,42893123,24,17,5)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(18,46,55214364,29,14,18)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(19,84,15686824,26,17,8)
-INSERT INTO order_details (id,quantity,list_price,discount,order_id,product_id) VALUES(20,100,23749781,18,12,5)
+SET IDENTITY_INSERT order_details ON 
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (1, 20, CAST(95341098.00 AS Decimal(10, 2)), CAST(22.00 AS Decimal(4, 2)), NULL, 6, 4)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (2, 62, CAST(49133320.00 AS Decimal(10, 2)), CAST(14.00 AS Decimal(4, 2)), NULL, 8, 9)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (3, 24, CAST(28056384.00 AS Decimal(10, 2)), CAST(19.00 AS Decimal(4, 2)), NULL, 11, 9)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (4, 46, CAST(1989046.00 AS Decimal(10, 2)), CAST(25.00 AS Decimal(4, 2)), NULL, 18, 19)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (5, 8, CAST(93968244.00 AS Decimal(10, 2)), CAST(13.00 AS Decimal(4, 2)), NULL, 4, 2)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (6, 94, CAST(76516669.00 AS Decimal(10, 2)), CAST(26.00 AS Decimal(4, 2)), NULL, 9, 13)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (7, 87, CAST(42893123.00 AS Decimal(10, 2)), CAST(24.00 AS Decimal(4, 2)), NULL, 17, 5)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (8, 46, CAST(55214364.00 AS Decimal(10, 2)), CAST(29.00 AS Decimal(4, 2)), NULL, 14, 18)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (9, 84, CAST(15686824.00 AS Decimal(10, 2)), CAST(26.00 AS Decimal(4, 2)), NULL, 17, 8)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (10, 100, CAST(23749781.00 AS Decimal(10, 2)), CAST(18.00 AS Decimal(4, 2)), NULL, 12, 5)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (11, 20, CAST(95341098.00 AS Decimal(10, 2)), CAST(22.00 AS Decimal(4, 2)), NULL, 6, 4)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (12, 62, CAST(49133320.00 AS Decimal(10, 2)), CAST(14.00 AS Decimal(4, 2)), NULL, 8, 9)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (13, 24, CAST(28056384.00 AS Decimal(10, 2)), CAST(19.00 AS Decimal(4, 2)), NULL, 11, 9)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (14, 46, CAST(1989046.00 AS Decimal(10, 2)), CAST(25.00 AS Decimal(4, 2)), NULL, 18, 19)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (15, 8, CAST(93968244.00 AS Decimal(10, 2)), CAST(13.00 AS Decimal(4, 2)), NULL, 4, 2)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (16, 94, CAST(76516669.00 AS Decimal(10, 2)), CAST(26.00 AS Decimal(4, 2)), NULL, 20, 13)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (17, 87, CAST(42893123.00 AS Decimal(10, 2)), CAST(24.00 AS Decimal(4, 2)), NULL, 17, 5)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (18, 46, CAST(55214364.00 AS Decimal(10, 2)), CAST(29.00 AS Decimal(4, 2)), NULL, 14, 18)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (19, 84, CAST(15686824.00 AS Decimal(10, 2)), CAST(26.00 AS Decimal(4, 2)), NULL, 17, 8)
+INSERT order_details (id, quantity, list_price, discount, description, order_id, product_id) VALUES (20, 100, CAST(23749781.00 AS Decimal(10, 2)), CAST(18.00 AS Decimal(4, 2)), NULL, 12, 5)
 SET IDENTITY_INSERT order_details OFF
 
-SET IDENTITY_INSERT stocks ON
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(1,69,2,15)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(2,50,3,13)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(3,81,1,9)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(4,45,4,16)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(5,29,1,20)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(6,23,5,5)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(7,77,5,9)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(8,38,2,3)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(9,15,2,7)
-INSERT INTO stocks (id,quantity,store_id,product_id) VALUES(10,80,2,18)
+SET IDENTITY_INSERT stocks ON 
+INSERT stocks (id, quantity, store_id, product_id) VALUES (1, 69, 2, 15)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (2, 50, 3, 13)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (3, 81, 1, 9)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (4, 45, 4, 16)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (5, 29, 1, 20)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (6, 23, 5, 5)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (7, 77, 5, 9)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (8, 38, 2, 3)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (9, 15, 2, 7)
+INSERT stocks (id, quantity, store_id, product_id) VALUES (10, 80, 2, 18)
 SET IDENTITY_INSERT stocks OFF
 GO
 -- products

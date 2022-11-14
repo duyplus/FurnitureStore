@@ -1,16 +1,15 @@
 package com.store.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Nationalized;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -19,8 +18,21 @@ import javax.validation.constraints.Size;
 @Table(name = "customers")
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+
+    @Size(max = 100)
+    @NotNull
+    @Nationalized
+    @Column(name = "username", nullable = false, length = 100)
+    private String username;
+
+    @Size(max = 255)
+    @NotNull
+    @Nationalized
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Size(max = 255)
     @NotNull
@@ -38,6 +50,11 @@ public class Customer {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "birthday")
+    private Date birthday;
+
     @Size(max = 255)
     @Nationalized
     @Column(name = "street")
@@ -48,12 +65,12 @@ public class Customer {
     @Column(name = "city", length = 100)
     private String city;
 
-    @Size(max = 30)
+    @Size(max = 255)
     @Nationalized
-    @Column(name = "state", length = 30)
-    private String state;
+    @Column(name = "image")
+    private String image;
 
-    @Size(max = 6)
-    @Column(name = "zip_code", length = 6)
-    private String zipCode;
+    @Size(max = 20)
+    @Column(name = "token", length = 20)
+    private String token;
 }

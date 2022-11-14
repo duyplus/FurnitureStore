@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Nationalized;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,8 +18,21 @@ import javax.validation.constraints.Size;
 @Table(name = "staffs")
 public class Staff {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+
+    @Size(max = 100)
+    @NotNull
+    @Nationalized
+    @Column(name = "username", nullable = false, length = 100)
+    private String username;
+
+    @Size(max = 255)
+    @NotNull
+    @Nationalized
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Size(max = 255)
     @NotNull
@@ -37,10 +52,12 @@ public class Staff {
     @Column(name = "active", columnDefinition = "tinyint not null")
     private Short active;
 
-    @Column(name = "manager_id")
-    private Integer managerId;
-
-    @ManyToOne
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
+
+    @Column(name = "manager_id")
+    private Integer managerId;
 }

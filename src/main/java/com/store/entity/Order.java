@@ -22,12 +22,12 @@ public class Order {
     private Short status;
 
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "order_date", nullable = false)
     private Date orderDate;
 
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "shipped_date")
     private Date shippedDate;
 

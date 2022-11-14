@@ -30,6 +30,9 @@ public class OrderDetail {
     @Column(name = "discount", nullable = false, precision = 4, scale = 2)
     private BigDecimal discount;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
