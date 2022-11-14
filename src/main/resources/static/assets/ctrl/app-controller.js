@@ -13,10 +13,8 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/reset-password", { templateUrl: "pages/reset-password.html", controller: "user-ctrl" })
         .when("/register", { templateUrl: "pages/register.html", controller: "user-ctrl" })
         .when("/login", { templateUrl: "pages/login.html", controller: "user-ctrl" })
-
         .when("/contact", { templateUrl: "pages/contact.html" })
         .when("/about", { templateUrl: "pages/about.html" })
-        .when("/blog", { templateUrl: "pages/blog.html" })
         .when("/404", { templateUrl: "pages/404.html" })
         .otherwise({ redirectTo: "/" });
 });

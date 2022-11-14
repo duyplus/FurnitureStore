@@ -86,7 +86,7 @@
             $('#navigation').slideToggle(400);
         });
         $('.navigation-menu>li').slice(-2).addClass('last-elements');
-        $('.navigation-menu li.has-submenu a[href="#"]').on('click', function (e) {
+        $('.navigation-menu li.has-submenu a[href="javascript:void(0);"]').on('click', function (e) {
             if ($(window).width() < 992) {
                 e.preventDefault();
                 $(this).parent('li').toggleClass('open').find('.submenu:first').toggleClass('open');
