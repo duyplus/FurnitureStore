@@ -1,5 +1,6 @@
 package com.store.service.impl;
 
+import com.store.entity.Staff;
 import com.store.repository.StaffRepository;
 import com.store.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
 package com.store.rest;
 
+import com.store.entity.Staff;
 import com.store.exception.ResourceNotFoundException;
 import com.store.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
