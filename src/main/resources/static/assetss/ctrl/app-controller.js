@@ -48,6 +48,39 @@ app.directive('convertDate', function () {
     }
 });
 
+app.directive("owlCarousel", function () {
+    return {
+        restrict: "E",
+        transclude: false,
+        link: function (scope) {
+            scope.initCarousel = function (element) {
+                var defaultOptions = {};
+                var customOptions = scope.$eval($(element).attr("data-options"));
+                for (var key in customOptions) {
+                    defaultOptions[key] = customOptions[key];
+                }
+                var curOwl = $(element).data("owlCarousel");
+                if (!angular.isDefined(curOwl)) {
+                    $(element).owlCarousel(defaultOptions);
+                }
+                scope.cnt++;
+            };
+        },
+    };
+}).directive("owlCarouselItem", [
+    function () {
+        return {
+            restrict: "A",
+            transclude: false,
+            link: function (scope, element) {
+                if (scope.$last) {
+                    scope.initCarousel(element.parent());
+                }
+            },
+        };
+    },
+]);
+
 app.factory('myService', function () {
     var savedData = {}
     function set(data) {
