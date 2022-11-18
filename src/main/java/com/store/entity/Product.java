@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 @Table(name = "products")
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -33,6 +34,17 @@ public class Product {
     @NotNull
     @Column(name = "list_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal listPrice;
+
+    @Column(name = "discount")
+    private Integer discount;
+
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "image", nullable = false)
+    private String image;
+
+    @Column(name = "description")
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
