@@ -29,10 +29,11 @@
 										<h2>Login</h2>
 										<form class="hs-form hs-form-login login" th:object="${customer}"
 											th:action="@{/auth/login}" method="post">
+											<span th:text="${message}"></span>
 											<p class="hs-form-row hs-form-row--wide form-row form-row-wide">
 												<label>Username&nbsp;<span class="required">*</span></label>
 												<input type="text" class="hs-Input hs-Input--text input-text"
-													th:field="*{username}" required>
+													th:field="*{username}" autofocus="true" required>
 											</p>
 											<p class="hs-form-row hs-form-row--wide form-row form-row-wide">
 												<label>Password&nbsp;<span class="required">*</span></label>

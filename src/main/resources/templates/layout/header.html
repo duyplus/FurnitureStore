@@ -202,24 +202,29 @@
 										<span class="flaticon-profile"></span>
 									</a>
 									<ul class="sub-menu">
-										<li class="menu-item is-active">
-											<a href="/admin">Dashboard</a>
-										</li>
-										<li class="menu-item is-active">
-											<a href="auth/login">Login</a>
-										</li>
-										<li class="menu-item is-active">
-											<a href="auth/register">Register</a>
-										</li>
-										<li class="menu-item">
-											<a href="my-account">Account details</a>
-										</li>
-										<li class="menu-item">
-											<a href="javascript:void(0);">Orders</a>
-										</li>
-										<li class="menu-item">
-											<a href="javascript:void(0);" ng-click="">Logout</a>
-										</li>
+										<th:block th:unless="${#request.remoteUser}">
+											<li class="menu-item is-active">
+												<a th:href="@{auth/login/form}">Login</a>
+											</li>
+											<li class="menu-item is-active">
+												<a th:href="@{auth/register}">Register</a>
+											</li>
+										</th:block>
+										<th:block th:if="${#request.remoteUser}">
+											<li class="menu-item is-active"
+												th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+												<a th:href="@{/admin}">Dashboard</a>
+											</li>
+											<li class="menu-item">
+												<a th:href="@{/my-account}">Account details</a>
+											</li>
+											<li class="menu-item">
+												<a th:href="@{/order/list}">Orders</a>
+											</li>
+											<li class="menu-item">
+												<a th:href="@{/auth/logout}">Logout</a>
+											</li>
+										</th:block>
 									</ul>
 								</div>
 								<div class="block-minicart block-dreaming hs-mini-cart hs-dropdown">
@@ -238,8 +243,7 @@
 														ng-click="cart.remove(item.id)">×</a>
 													<a href="/product/detail/{{item.id}}">
 														<img alt="img" class="attachment-hs_thumbnail size-hs_thumbnail"
-															height="778" src="assets/images/{{item.image}}"
-															width="600">{{item.name}}&nbsp;
+															ng-src="assets/images/products/{{item.image}}">{{item.name}}&nbsp;
 													</a>
 													<span class="quantity">
 														{{item.qty}} ×
@@ -334,7 +338,7 @@
 		</div>
 		<div class="header-mobile-mid">
 			<div class="header-logo">
-				<a href="#!"><img alt="nt" class="logo" src="assets/images/logo.png"></a>
+				<a href="/"><img class="logo" th:src="@{/assets/images/logo.png}"></a>
 			</div>
 		</div>
 		<div class="header-mobile-right">
@@ -345,80 +349,63 @@
 							<span class="flaticon-profile"></span>
 						</a>
 						<ul class="sub-menu">
-							<li
-								class="menu-item hs-myaccount-navigation-link hs-myaccount-navigation-link--dashboard is-active">
-								<a href="javascript:void(0);">Dashboard</a>
-							</li>
-							<li class="menu-item hs-myaccount-navigation-link hs-myaccount-navigation-link--orders">
-								<a href="javascript:void(0);">Orders</a>
-							</li>
-							<li class="menu-item hs-myaccount-navigation-link hs-myaccount-navigation-link--downloads">
-								<a href="javascript:void(0);">Downloads</a>
-							</li>
-							<li
-								class="menu-item hs-myaccount-navigation-link hs-myaccount-navigation-link--edit-adchair">
-								<a href="javascript:void(0);">Address</a>
-							</li>
-							<li
-								class="menu-item hs-myaccount-navigation-link hs-myaccount-navigation-link--edit-account">
-								<a href="javascript:void(0);">Account details</a>
-							</li>
-							<li
-								class="menu-item hs-myaccount-navigation-link hs-myaccount-navigation-link--customer-logout">
-								<a href="javascript:void(0);">Logout</a>
-							</li>
+							<th:block th:unless="${#request.remoteUser}">
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/login/form}">Login</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/register}">Register</a>
+								</li>
+							</th:block>
+							<th:block th:if="${#request.remoteUser}">
+								<li class="menu-item hs-myaccount-navigation-link is-active">
+									<a th:href="@{/admin}">Dashboard</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a href="javascript:void(0);">Account details</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/order/list}">Orders</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/logout}">Logout</a>
+								</li>
+							</th:block>
 						</ul>
 					</div>
 					<div class="block-minicart block-dreaming hs-mini-cart hs-dropdown">
 						<div class="shopcart-dropdown block-cart-link" data-hs="hs-dropdown">
 							<a class="block-link link-dropdown" href="javascript:void(0);">
 								<span class="flaticon-cart"></span>
-								<span class="count">3</span>
+								<span class="count">{{cart.count}}</span>
 							</a>
 						</div>
 						<div class="widget nt widget_shopping_cart">
 							<div class="widget_shopping_cart_content">
 								<ul class="hs-mini-cart cart_list product_list_widget">
-									<li class="hs-mini-cart-item mini_cart_item">
-										<a class="remove remove_from_cart_button" href="javascript:void(0);">×</a>
-										<a href="javascript:void(0);">
+									<li class="hs-mini-cart-item mini_cart_item" ng-repeat="item in cart.items">
+										<a class="remove remove_from_cart_button" href="javascript:void(0);"
+											ng-click="cart.remove(item.id)">×</a>
+										<a href="/product/detail/{{item.id}}">
 											<img alt="img" class="attachment-hs_thumbnail size-hs_thumbnail"
-												height="778" src="assets/images/apro134-1-600x778.jpg"
-												width="600">T-shirt
-											with
-											skirt – Pink&nbsp;
-										</a>
-										<span class="quantity">1 × <span class="hs-Price-amount amount"><span
-													class="hs-Price-currencySymbol">$</span>150.00</span></span>
-									</li>
-									<li class="hs-mini-cart-item mini_cart_item">
-										<a class="remove remove_from_cart_button" href="javascript:void(0);">×</a>
-										<a href="javascript:void(0);">
-											<img alt="img" class="attachment-hs_thumbnail size-hs_thumbnail"
-												height="778" src="assets/images/apro1113-600x778.jpg" width="600">Alarm
-											Clock&nbsp;
-										</a>
-										<span class="quantity">1 × <span class="hs-Price-amount amount"><span
-													class="hs-Price-currencySymbol">$</span>129.00</span></span>
-									</li>
-									<li class="hs-mini-cart-item mini_cart_item">
-										<a class="remove remove_from_cart_button" href="javascript:void(0);">×</a>
-										<a href="javascript:void(0);">
-											<img alt="img" class="attachment-hs_thumbnail size-hs_thumbnail"
-												height="778" src="assets/images/apro201-1-600x778.jpg" width="600">Chair
-											AAC&nbsp;
-										</a>
-										<span class="quantity">1 × <span class="hs-Price-amount amount"><span
-													class="hs-Price-currencySymbol">$</span>139.00</span></span>
+												ng-src="assets/images/products/{{item.image}}">{{item.name}}&nbsp;</a>
+										<span class="quantity">
+											{{item.qty}} ×
+											<span class="hs-Price-amount amount">
+												{{item.listPrice | number:0}}<span
+													class="hs-Price-currencySymbol">₫</span>
+											</span>
+										</span>
 									</li>
 								</ul>
 								<p class="hs-mini-cart__total total"><strong>Subtotal:</strong>
-									<span class="hs-Price-amount amount"><span
-											class="hs-Price-currencySymbol">$</span>418.00</span>
+									<span class="hs-Price-amount amount">
+										{{cart.amount | number:0}}<span class="hs-Price-currencySymbol">₫</span>
+									</span>
 								</p>
 								<p class="hs-mini-cart__buttons buttons">
-									<a class="button hs-forward" href="#!cart">View cart</a>
-									<a class="button checkout hs-forward" href="#!checkout">Checkout</a>
+									<a class="button hs-forward" th:href="@{/cart/view}">View cart</a>
+									<a class="button checkout hs-forward" th:href="@{/cart/checkout}">Checkout</a>
 								</p>
 							</div>
 						</div>
