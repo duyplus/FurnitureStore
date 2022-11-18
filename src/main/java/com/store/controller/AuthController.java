@@ -32,7 +32,7 @@ public class AuthController {
 //        return session.getAttribute("authentication");
 //    }
 
-    @RequestMapping("/auth/login")
+    @RequestMapping("/auth/login/form")
     public String logInForm(Model model, @ModelAttribute("customer") Customer customer) {
         return "auth/login";
     }
@@ -41,7 +41,7 @@ public class AuthController {
     @RequestMapping("/auth/login/success")
     public String logInSuccess(Model model, @ModelAttribute("customer") Customer customer) {
         model.addAttribute("message", "Logged in successfully");
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @RequestMapping("/auth/login/error")
@@ -73,7 +73,7 @@ public class AuthController {
 //    }
 
     @GetMapping("/auth/register")
-    public String signUpForm(Model model) {
+    public String signUpForm(Model model, @ModelAttribute("customer") Customer customer) {
         model.addAttribute("customer", new Customer());
         return "auth/register";
     }
@@ -124,7 +124,8 @@ public class AuthController {
         }
         return "auth/reset-password";
     }
-//
+
+    //
 //    @PostMapping("/auth/reset-password")
 //    public String processResetPassword(@RequestParam("token") String code, @RequestParam("password") String password,
 //                                       HttpServletResponse response, Model model) {

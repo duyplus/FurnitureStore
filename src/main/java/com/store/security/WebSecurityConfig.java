@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -49,15 +48,6 @@ public class WebSecurityConfig {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        auth.authenticationProvider(authenticationProvider());
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
     }
 
     //Cors filter to accept incoming requests
@@ -86,14 +76,14 @@ public class WebSecurityConfig {
         // Quyền truy cập OpenAPIDefinition
         http.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll();
         // Quyền yêu cầu truy cập
-        http.authorizeRequests().antMatchers("/order/**", "/auth/change-password").authenticated()
-                .antMatchers("/admin/**").hasAnyRole("STAF", "DIRE").antMatchers("/api/authorities").hasRole("DIRE")
-                .anyRequest().permitAll();
+        http.authorizeRequests().antMatchers("/", "/auth/login", "/auth/register", "/auth/forgot-password").permitAll();
+        http.authorizeRequests().antMatchers("/order/**", "/auth/change-password").authenticated();
+        http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN").anyRequest().permitAll();
 //        http.authorizeRequests()
 //                .antMatchers("/**", "/admin/**", "/auth/**", "/api/**").permitAll()
 //                .anyRequest().authenticated();
         // Đăng nhập
-        http.formLogin().loginPage("/auth/login").loginProcessingUrl("/auth/login")
+        http.formLogin().loginPage("/auth/login/form").loginProcessingUrl("/auth/login")
                 .defaultSuccessUrl("/auth/login/success", false).failureUrl("/auth/login/error");
         http.rememberMe().tokenValiditySeconds(86400); // remember me
         // Điều khiển lỗi truy cập không đúng quyền

@@ -36,7 +36,7 @@ public class HomeController {
 
     @GetMapping({"admin", "admin/index"})
     public String admin() {
-        return "redirect:/admin/index.html";
+        return "redirect:/admin";
     }
 
     @GetMapping("about")
