@@ -17,6 +17,9 @@ CREATE TABLE products (
 	name NVARCHAR (255) NOT NULL,
 	model_year SMALLINT NOT NULL,
 	list_price DECIMAL (10, 2) NOT NULL,
+	discount INT,
+	image NVARCHAR (255) NOT NULL,
+	description NVARCHAR (MAX) NOT NULL,
 	brand_id INT NOT NULL,
 	category_id INT NOT NULL
 );
@@ -109,26 +112,26 @@ INSERT brands (id, name) VALUES (10, N'Isuzu')
 SET IDENTITY_INSERT brands OFF
 
 SET IDENTITY_INSERT products ON 
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (1, N'Spermophilus richardsonii', 2000, CAST(16933060.00 AS Decimal(10, 2)), 9, 6)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (2, N'Macropus rufogriseus', 2011, CAST(32138296.00 AS Decimal(10, 2)), 9, 9)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (3, N'Butorides striatus', 2006, CAST(84596335.00 AS Decimal(10, 2)), 2, 9)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (4, N'Eolophus roseicapillus', 1997, CAST(12042220.00 AS Decimal(10, 2)), 3, 7)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (5, N'Climacteris melanura', 2011, CAST(5703366.00 AS Decimal(10, 2)), 7, 3)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (6, N'Bassariscus astutus', 2010, CAST(81106774.00 AS Decimal(10, 2)), 10, 2)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (7, N'Otocyon megalotis', 2009, CAST(82788178.00 AS Decimal(10, 2)), 9, 5)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (8, N'Coracias caudata', 2004, CAST(71063447.00 AS Decimal(10, 2)), 8, 1)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (9, N'Certotrichas paena', 1994, CAST(29597449.00 AS Decimal(10, 2)), 10, 8)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (10, N'Heloderma horridum', 1997, CAST(97769100.00 AS Decimal(10, 2)), 4, 6)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (11, N'Herpestes javanicus', 1997, CAST(86383925.00 AS Decimal(10, 2)), 2, 4)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (12, N'Paraxerus cepapi', 1960, CAST(37855270.00 AS Decimal(10, 2)), 8, 6)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (13, N'Anser caerulescens', 1993, CAST(74105793.00 AS Decimal(10, 2)), 2, 3)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (14, N'Philetairus socius', 1987, CAST(25692703.00 AS Decimal(10, 2)), 9, 6)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (15, N'Colobus guerza', 1955, CAST(90361142.00 AS Decimal(10, 2)), 4, 4)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (16, N'Leprocaulinus vipera', 1997, CAST(70613114.00 AS Decimal(10, 2)), 6, 1)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (17, N'Irania gutteralis', 2009, CAST(98645184.00 AS Decimal(10, 2)), 10, 1)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (18, N'Canis lupus lycaon', 2001, CAST(78187960.00 AS Decimal(10, 2)), 8, 5)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (19, N'Oryx gazella', 1989, CAST(50174632.00 AS Decimal(10, 2)), 2, 9)
-INSERT products (id, name, model_year, list_price, brand_id, category_id) VALUES (20, N'Vulpes chama', 1988, CAST(82433783.00 AS Decimal(10, 2)), 6, 8)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (1, N'Spermophilus richardsonii', 2000, CAST(16933060.00 AS Decimal(10, 2)), 0, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 9, 6)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (2, N'Macropus rufogriseus', 2011, CAST(32138296.00 AS Decimal(10, 2)), 0, 'anh2.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 9, 9)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (3, N'Butorides striatus', 2006, CAST(84596335.00 AS Decimal(10, 2)), 10, 'anh3.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 2, 9)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (4, N'Eolophus roseicapillus', 1997, CAST(12042220.00 AS Decimal(10, 2)), 12, 'anh4.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 3, 7)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (5, N'Climacteris melanura', 2011, CAST(5703366.00 AS Decimal(10, 2)), 7, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 7, 3)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (6, N'Bassariscus astutus', 2010, CAST(81106774.00 AS Decimal(10, 2)), 8, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 10, 2)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (7, N'Otocyon megalotis', 2009, CAST(82788178.00 AS Decimal(10, 2)), 15, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 9, 5)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (8, N'Coracias caudata', 2004, CAST(71063447.00 AS Decimal(10, 2)), 20, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 8, 1)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (9, N'Certotrichas paena', 1994, CAST(29597449.00 AS Decimal(10, 2)), 19, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 10, 8)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (10, N'Heloderma horridum', 1997, CAST(97769100.00 AS Decimal(10, 2)), 5, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 4, 6)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (11, N'Herpestes javanicus', 1997, CAST(86383925.00 AS Decimal(10, 2)), 7, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 2, 4)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (12, N'Paraxerus cepapi', 1960, CAST(37855270.00 AS Decimal(10, 2)), 0, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 8, 6)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (13, N'Anser caerulescens', 1993, CAST(74105793.00 AS Decimal(10, 2)), 0, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 2, 3)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (14, N'Philetairus socius', 1987, CAST(25692703.00 AS Decimal(10, 2)), 0, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 9, 6)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (15, N'Colobus guerza', 1955, CAST(90361142.00 AS Decimal(10, 2)), 7, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 4, 4)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (16, N'Leprocaulinus vipera', 1997, CAST(70613114.00 AS Decimal(10, 2)), 12, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 6, 1)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (17, N'Irania gutteralis', 2009, CAST(98645184.00 AS Decimal(10, 2)), 15, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 10, 1)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (18, N'Canis lupus lycaon', 2001, CAST(78187960.00 AS Decimal(10, 2)), 10, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 8, 5)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (19, N'Oryx gazella', 1989, CAST(50174632.00 AS Decimal(10, 2)), 10, 'anh1.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 2, 9)
+INSERT products (id, name, model_year, list_price, discount, image, description, brand_id, category_id) VALUES (20, N'Vulpes chama', 1988, CAST(82433783.00 AS Decimal(10, 2)), 0, 'anh14.jpg', N'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 6, 8)
 SET IDENTITY_INSERT products OFF
 
 SET IDENTITY_INSERT customers ON 
