@@ -15,4 +15,12 @@ public interface CustomerService {
     Customer update(Customer customer);
 
     void delete(int id);
+
+    void updateToken(String token, String email) throws Exception;
+
+    Customer getByToken(String token);
+
+    void updatePassword(Customer customer, String newPassword);
+
+    void changePassword(Customer customer, String newPassword);
 }
