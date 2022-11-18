@@ -13,7 +13,13 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     Customer findByUsername(String username);
 
-    Customer findByEmail(String email);
+    @Query("SELECT c FROM Customer c WHERE c.username =?1 and c.password=?2")
+    Customer getAccount(String username, String password);
 
-    Customer findByToken(String token);
+    // Phuc vu viec gui mail
+    @Query("SELECT c FROM Customer c WHERE c.email=?1")
+    public Customer findByEmail(String email);
+
+    @Query("SELECT c FROM Customer c WHERE c.token=?1")
+    public Customer findByToken(String token);
 }
