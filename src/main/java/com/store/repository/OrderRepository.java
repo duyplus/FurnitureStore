@@ -2,11 +2,11 @@ package com.store.repository;
 
 import com.store.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@ResponseBody
+@Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findByCustomer(String username);
 }
