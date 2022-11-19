@@ -1,9 +1,9 @@
 package com.store.controller;
 
 import com.store.entity.Customer;
+import com.store.service.AuthenticationService;
 import com.store.service.CustomerService;
 import com.store.service.MailerService;
-import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -12,14 +12,15 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class AuthController {
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    AuthenticationService authenticationService;
 
     @Autowired
     MailerService mailer;
@@ -83,25 +84,16 @@ public class AuthController {
     }
 
     @PostMapping("/auth/forgot-password")
-    public String processForgotPassword(@RequestParam("email") String email, HttpServletRequest request, Model model)
-            throws Exception {
-        try {
-            String token = RandomString.make(50);
-            customerService.updateToken(token, email);
-            String resetLink = getSiteURL(request) + "/auth/reset-password?token=" + token;
-            mailer.sendEmail(email, resetLink);
-            model.addAttribute("message", "We have sent a reset password link to your email. "
-                    + "If you don't see the email, check your spam folder.");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Error while sending email");
-        }
+    public String processForgotPassword(@RequestParam("email") String email, Model model) throws Exception {
+        authenticationService.sendResetMail(email);
+        model.addAttribute("message", "We have sent a reset password link to your email. "
+                + "If you don't see the email, check your spam folder.");
         return "auth/forgot-password";
     }
 
     @GetMapping("/auth/reset-password")
     public String resetPasswordForm(@Param(value = "token") String token, Model model) {
-        Customer customer = customerService.getByToken(token);
+        Customer customer = authenticationService.findByToken(token);
         model.addAttribute("token", token);
         if (customer == null) {
             model.addAttribute("message", "Invalid token!");
@@ -111,13 +103,11 @@ public class AuthController {
     }
 
     @PostMapping("/auth/reset-password")
-    public String processResetPassword(@RequestParam("token") String code, @RequestParam("password") String password,
-                                       HttpServletResponse response, Model model) {
-        Customer token = customerService.getByToken(code);
+    public String processResetPassword(@RequestParam("token") String token, HttpServletResponse response, Model model) {
+        Customer customer = authenticationService.findByToken(token);
         if (token == null) {
             model.addAttribute("message", "Invalid token!");
         } else {
-            customerService.updatePassword(token, password);
             model.addAttribute("message", "You have successfully changed your password!");
             response.addHeader("refresh", "2;url=/auth/login/form");
         }
@@ -137,11 +127,6 @@ public class AuthController {
 //        model.addAttribute("message", "Change password successfully!");
 //        return "auth/change-password";
 //    }
-
-    public String getSiteURL(HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
-    }
 
 //    // OAuth2
 //    @RequestMapping("/oauth2/login/success")

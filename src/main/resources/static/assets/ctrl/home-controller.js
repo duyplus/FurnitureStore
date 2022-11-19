@@ -1,8 +1,6 @@
 const app = angular.module("myApp", []);
-app.controller("myCtrl", function ($scope, $http) {
-    var url = "http://localhost:8080/api/product";
-    var url1 = "http://localhost:8080/api/order";
-
+app.constant("HOST", "http://localhost:8080");
+app.controller("myCtrl", function ($scope, $http, HOST) {
     var sweetalert = function (text) {
         Swal.fire({
             icon: "success",
@@ -23,7 +21,7 @@ app.controller("myCtrl", function ($scope, $http) {
                 this.saveToLocalStorage();
             }
             else {
-                $http.get(`${url}/${id}`).then(resp => {
+                $http.get(`${HOST}/api/product/${id}`).then(resp => {
                     resp.data.qty = 1;
                     this.items.push(resp.data);
                     this.saveToLocalStorage();
@@ -84,7 +82,7 @@ app.controller("myCtrl", function ($scope, $http) {
         purchase() {
             var order = angular.copy(this);
             // Thực hiện đặt hàng
-            $http.post(url1, order).then(resp => {
+            $http.post(HOST + "/api/order", order).then(resp => {
                 sweetalert("Đặt hàng thành công!");
                 $scope.cart.clear();// xóa
                 location.href = "/order/detail/" + resp.data.id; // chuyển đến tảng chi tiết dơn hàng

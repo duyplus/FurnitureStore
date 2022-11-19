@@ -18,11 +18,9 @@ public interface CustomerService {
 
     void delete(int id);
 
-    void updateToken(String token, String email) throws Exception;
+    Customer findUsernameByEmail(String email);
 
-    Customer getByToken(String token);
+    Customer findByEmail(String email);
 
-    void updatePassword(Customer customer, String newPassword);
-
-    void changePassword(Customer customer, String newPassword);
+    Customer findByToken(String token);
 }

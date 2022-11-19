@@ -45,31 +45,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateToken(String token, String email) throws Exception {
-        Customer customer = customerRepository.findByEmail(email);
-        if (customer != null) {
-            customer.setToken(token);
-            customerRepository.save(customer);
-        } else {
-            throw new Exception("Cannot find any account with email: " + email);
-        }
+    public Customer findUsernameByEmail(String email) {
+        return customerRepository.findUsernameByEmail(email);
     }
 
     @Override
-    public Customer getByToken(String token) {
+    public Customer findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
+    @Override
+    public Customer findByToken(String token) {
         return customerRepository.findByToken(token);
-    }
-
-    @Override
-    public void updatePassword(Customer customer, String newPassword) {
-        customer.setPassword(newPassword);
-        customer.setToken("token");
-        customerRepository.save(customer);
-    }
-
-    @Override
-    public void changePassword(Customer customer, String newPassword) {
-        customer.setPassword(newPassword);
-        customerRepository.save(customer);
     }
 }

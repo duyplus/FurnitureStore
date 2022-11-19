@@ -28,27 +28,27 @@
 									<div class="u-column1 col-1 w-100 px-5">
 										<h2>Sign up</h2>
 										<form class="hs-form hs-form-login login" th:object="${customer}"
-											th:action="@{/auth/login}" method="post">
+											th:action="@{/auth/register}" method="post">
 											<span th:text="${message}"></span>
 											<p class="hs-form-row hs-form-row--wide form-row form-row-wide">
 												<label>Username&nbsp;<span class="required">*</span></label>
 												<input type="text" class="hs-Input hs-Input--text input-text"
-													th:field="*{username}" required>
+													th:field="*{username}" placeholder="Enter your username" required>
 											</p>
 											<p class="hs-form-row hs-form-row--wide form-row form-row-wide">
 												<label>Password&nbsp;<span class="required">*</span></label>
 												<input type="password" class="hs-Input hs-Input--text input-text"
-													th:field="*{password}" required>
+													th:field="*{password}" placeholder="Enter your password" required>
 											</p>
 											<p class="hs-form-row hs-form-row--wide form-row form-row-wide">
 												<label>Fullname&nbsp;<span class="required">*</span></label>
 												<input type="text" class="hs-Input hs-Input--text input-text"
-													th:field="*{fullname}" required>
+													th:field="*{fullname}" placeholder="Enter your fullname" required>
 											</p>
 											<p class="hs-form-row hs-form-row--wide form-row form-row-wide">
 												<label>Email&nbsp;<span class="required">*</span></label>
 												<input type="email" class="hs-Input hs-Input--text input-text"
-													th:field="*{email}" required>
+													th:field="*{email}" placeholder="Enter your email" required>
 											</p>
 											<p class="form-row">
 												<button type="submit" class="hs-Button button">Sign up</button>
