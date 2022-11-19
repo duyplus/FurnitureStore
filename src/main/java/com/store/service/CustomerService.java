@@ -10,6 +10,8 @@ public interface CustomerService {
 
     Customer findById(int id);
 
+    Customer findByUsername(String username);
+
     Customer create(Customer customer);
 
     Customer update(Customer customer);

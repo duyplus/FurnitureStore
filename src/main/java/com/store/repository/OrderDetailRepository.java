@@ -2,8 +2,8 @@ package com.store.repository;
 
 import com.store.entity.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.stereotype.Repository;
 
-@ResponseBody
+@Repository
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer> {
 }

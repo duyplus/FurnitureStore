@@ -1,5 +1,8 @@
 package com.store.security;
 
+import com.store.entity.Customer;
+import com.store.payload.JwtAuthentication;
+import com.store.payload.JwtRequestFilter;
 import com.store.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,15 +15,20 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Collections;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +41,16 @@ public class WebSecurityConfig {
     CustomerService customerService;
 
     @Autowired
+    HttpSession session;
+
+    @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtAuthentication jwtAuthentication;
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -47,6 +64,20 @@ public class WebSecurityConfig {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(username -> {
+            try {
+                Customer customer = customerService.findByUsername(username);
+                String password = passwordEncoder().encode(customer.getPassword());
+                Map<String, Object> authentication = new HashMap<>();
+                authentication.put("customer", customer);
+                byte[] token = (username + ":" + customer.getPassword()).getBytes();
+                authentication.put("token", "Basic " + Base64.getEncoder().encodeToString(token));
+                session.setAttribute("authentication", authentication);
+                return User.withUsername(username).password(password).build();
+            } catch (NoSuchElementException e) {
+                throw new UsernameNotFoundException(username + " not found!");
+            }
+        });
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
@@ -78,7 +109,7 @@ public class WebSecurityConfig {
         // Quyền yêu cầu truy cập
         http.authorizeRequests().antMatchers("/", "/auth/login", "/auth/register", "/auth/forgot-password").permitAll();
         http.authorizeRequests().antMatchers("/order/**", "/auth/change-password").authenticated();
-        http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN").anyRequest().permitAll();
+//        http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN").anyRequest().permitAll();
 //        http.authorizeRequests()
 //                .antMatchers("/**", "/admin/**", "/auth/**", "/api/**").permitAll()
 //                .anyRequest().authenticated();
@@ -89,7 +120,11 @@ public class WebSecurityConfig {
         // Điều khiển lỗi truy cập không đúng quyền
         http.exceptionHandling().accessDeniedPage("/auth/unauthoried");
         // Đăng xuất
-        http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/auth/logout/success");
+        http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login/form").invalidateHttpSession(true).clearAuthentication(true);
+        http.headers().frameOptions().sameOrigin();
+        http.exceptionHandling().authenticationEntryPoint(jwtAuthentication);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         // OAuth2 - Đăng nhâp từ mang xã hôi
 //        http.oauth2Login().loginPage("/auth/login/form").defaultSuccessUrl("/oauth2/login/success", true)
 //                .failureUrl("/auth/login/error").authorizationEndpoint().baseUri("/oauth2/authorization");

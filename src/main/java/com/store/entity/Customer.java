@@ -1,15 +1,18 @@
 package com.store.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -47,6 +50,7 @@ public class Customer {
 
     @Size(max = 255)
     @NotNull
+    @Email
     @Column(name = "email", nullable = false)
     private String email;
 
@@ -73,4 +77,8 @@ public class Customer {
     @Size(max = 20)
     @Column(name = "token", length = 20)
     private String token;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    List<Order> orders;
 }
