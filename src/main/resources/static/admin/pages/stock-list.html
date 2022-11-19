@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="page-title">Danh sách kho</h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">Trang chủ</li>
+                            <li class="breadcrumb-item">Kho</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th>Mã kho</th>
+                                <th>Số lượng</th>
+                                <th>Tên cửa hàng</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Tuỳ chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in items | filter: returnStock(2)">
+                                <th>{{item.id}}</th>
+                                <th>{{item.quantity}}</th>
+                                <th>{{item.store.name}}</th>
+                                <th>{{item.product.name}}</th>
+                                <th>
+                                    <a href="admin/#!/stock-form" ng-click="edit(item)">
+                                        <i class="las la-pen text-info"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
