@@ -39,6 +39,11 @@ public class HomeController {
         return "redirect:/admin/index.html";
     }
 
+    @GetMapping("shop")
+    public String shop() {
+        return "shop";
+    }
+
     @GetMapping("about")
     public String about() {
         return "about";
