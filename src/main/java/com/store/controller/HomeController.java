@@ -30,6 +30,10 @@ public class HomeController {
         } else {
             Page<Product> list = productService.findAll(page.orElse(0), 8);
             model.addAttribute("items", list);
+            List<Product> list2 = productRepository.randProdInOd();
+            model.addAttribute("items2", list2);
+            List<Product> list3 = productRepository.randProdLessThanOrEqual();
+            model.addAttribute("items3", list3);
         }
         return "index";
     }
