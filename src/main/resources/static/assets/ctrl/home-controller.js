@@ -1,5 +1,13 @@
 const app = angular.module("myApp", []);
 app.constant("HOST", "http://localhost:8080");
+app.run(function ($http, $rootScope, HOST) {
+    $http.get(`${HOST}/api/customer`).then(resp => {
+        if (resp.data) {
+            $auth = $rootScope.$auth = resp.data;
+            $http.defaults.headers.common["Authorization"] = $auth.token;
+        }
+    });
+})
 app.controller("myCtrl", function ($scope, $http, HOST) {
     var sweetalert = function (text) {
         Swal.fire({
@@ -85,7 +93,7 @@ app.controller("myCtrl", function ($scope, $http, HOST) {
             $http.post(HOST + "/api/order", order).then(resp => {
                 sweetalert("Đặt hàng thành công!");
                 $scope.cart.clear();// xóa
-                location.href = "/order/detail/" + resp.data.id; // chuyển đến tảng chi tiết dơn hàng
+                location.href = "/order/detail/" + resp.data.id; // chuyển đến trang chi tiết dơn hàng
             }).catch(error => {
                 sweetalert("Đặt hàng lỗi!");
                 console.log("Error", error);
