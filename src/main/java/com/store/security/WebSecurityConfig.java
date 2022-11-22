@@ -81,7 +81,7 @@ public class WebSecurityConfig {
 				throw new UsernameNotFoundException(username + " not found!");
 			}
 		});
-//        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     //Cors filter to accept incoming requests
