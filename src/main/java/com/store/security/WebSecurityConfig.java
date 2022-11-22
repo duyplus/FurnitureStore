@@ -15,12 +15,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -62,24 +64,24 @@ public class WebSecurityConfig {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(username -> {
+    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(username -> {
 			try {
 				Customer customer = customerService.findByUsername(username);
 				String password = passwordEncoder().encode(customer.getPassword()); // Mã hóa mật khấu
 				String[] roles = customer.getAuthorities().stream().map(er -> er.getRole().getId())
 						.collect(Collectors.toList()).toArray(new String[0]);
-				Map<String, Object> authentication = new HashMap<>();
-				authentication.put("customer", customer);
+				Map<String, Object> auth = new HashMap<>();
+                auth.put("customer", customer);
 				byte[] token = (username + ":" + customer.getPassword()).getBytes();
-				authentication.put("token", "Basic " + Base64.getEncoder().encodeToString(token));
-				session.setAttribute("authentication", authentication);
+                auth.put("token", "Basic " + Base64.getEncoder().encodeToString(token));
+				session.setAttribute("authentication", auth);
 				return User.withUsername(username).password(password).roles(roles).build();
 			} catch (NoSuchElementException e) {
 				throw new UsernameNotFoundException(username + " not found!");
 			}
 		});
-//        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     //Cors filter to accept incoming requests
@@ -124,9 +126,9 @@ public class WebSecurityConfig {
         http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login/form").invalidateHttpSession(true).clearAuthentication(true);
         http.headers().frameOptions().sameOrigin();
 
-//        http.exceptionHandling().authenticationEntryPoint(jwtAuthentication);
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling().authenticationEntryPoint(jwtAuthentication);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         // OAuth2 - Đăng nhâp từ mang xã hôi
 //        http.oauth2Login().loginPage("/auth/login/form").defaultSuccessUrl("/oauth2/login/success", true)
 //                .failureUrl("/auth/login/error").authorizationEndpoint().baseUri("/oauth2/authorization");
