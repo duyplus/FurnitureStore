@@ -28,7 +28,7 @@ public class AuthController {
 
     @CrossOrigin("*")
     @ResponseBody
-    @RequestMapping("/api/auth/authentication")
+    @RequestMapping("/auth/authentication")
     public Object getAuthentication(HttpSession session) {
         return session.getAttribute("authentication");
     }

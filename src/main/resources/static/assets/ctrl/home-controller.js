@@ -1,7 +1,7 @@
 const app = angular.module("myApp", []);
 app.constant("HOST", "http://localhost:8080");
 app.run(function ($http, $rootScope, HOST) {
-    $http.get(`${HOST}/api/auth/authentication`).then(resp => {
+    $http.get(`${HOST}/auth/authentication`).then(resp => {
         if (resp.data) {
             $auth = $rootScope.$auth = resp.data;
             $http.defaults.headers.common["Authorization"] = $auth.token;
