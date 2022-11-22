@@ -1,5 +1,5 @@
 <header class="header style-01 header-dark header-transparent header-sticky" id="header"
-	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+		xmlns:th="http://www.thymeleaf.org">
 	<div class="header-wrap-stick">
 		<div class="header-position">
 			<div class="header-middle">
@@ -202,17 +202,16 @@
 										<span class="flaticon-profile"></span>
 									</a>
 									<ul class="sub-menu">
-										<div sec:authorize="!isFullyAuthenticated()">
+										<th:block th:unless="${#request.remoteUser}">
 											<li class="menu-item is-active">
 												<a th:href="@{auth/login/form}">Login</a>
 											</li>
 											<li class="menu-item is-active">
 												<a th:href="@{auth/register}">Register</a>
 											</li>
-										</div>
-										<div sec:authorize="isFullyAuthenticated()">
-											<li class="menu-item is-active"
-												th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+										</th:block>
+										<th:block th:if="${#request.remoteUser}">
+											<li class="menu-item is-active">
 												<a th:href="@{/admin}">Dashboard</a>
 											</li>
 											<li class="menu-item">
@@ -224,7 +223,7 @@
 											<li class="menu-item">
 												<a th:href="@{/auth/logout}">Logout</a>
 											</li>
-										</div>
+										</th:block>
 									</ul>
 								</div>
 								<div class="block-minicart block-dreaming hs-mini-cart hs-dropdown">

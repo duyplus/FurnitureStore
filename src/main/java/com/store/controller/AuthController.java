@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class AuthController {
@@ -25,12 +26,12 @@ public class AuthController {
     @Autowired
     MailerService mailer;
 
-//    @CrossOrigin("*")
-//    @ResponseBody
-//    @RequestMapping("/rest/auth/authentication")
-//    public Object getAuthentication(HttpSession session) {
-//        return session.getAttribute("authentication");
-//    }
+    @CrossOrigin("*")
+    @ResponseBody
+    @RequestMapping("/api/auth/authentication")
+    public Object getAuthentication(HttpSession session) {
+        return session.getAttribute("authentication");
+    }
 
     @RequestMapping("/auth/login/form")
     public String logInForm(Model model, @ModelAttribute("customer") Customer customer) {

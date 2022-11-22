@@ -83,4 +83,8 @@ public class Customer {
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     List<Order> orders;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    List<Authority> authorities;
 }

@@ -23,6 +23,11 @@ CREATE TABLE products (
 	brand_id INT NOT NULL,
 	category_id INT NOT NULL
 );
+CREATE TABLE authorities (
+	id int IDENTITY(1,1) PRIMARY KEY,
+	customer_id int NOT NULL,
+	role_id nvarchar(10) NOT NULL
+);
 CREATE TABLE customers (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
 	username NVARCHAR (100) NOT NULL,
@@ -35,6 +40,10 @@ CREATE TABLE customers (
 	city NVARCHAR (100),
 	image NVARCHAR(255),
 	token VARCHAR (20)
+);
+CREATE TABLE roles (
+	id nvarchar(10) PRIMARY KEY,
+	name nvarchar(50) NOT NULL
 );
 CREATE TABLE stores (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
@@ -56,7 +65,7 @@ CREATE TABLE staffs (
 	active tinyint NOT NULL,
 	store_id INT NOT NULL,
 	manager_id INT
-	-- Manage ID: 1 = Director; 0 = Staff
+	-- Manage id: 1 = Director; 0 = Staff
 );
 CREATE TABLE orders (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
@@ -140,12 +149,29 @@ INSERT customers (id, username, password, fullname, phone, email, birthday, stre
 INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (3, N'wyomingjacobs', N'$2a$10$JGj7BiHIihLTo9Fa8oOS0u4sE8Cd491hVAF7cI05KitsIALZOdPjq', N'Wyoming Jacobs', N'0727425146', N'wyomingjacobs9494@yahoo.com', CAST(N'2001-04-19' AS Date), N'721 Eget Rd.', N'Bình Duong', N'avt.png', NULL)
 INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (4, N'amyvincent', N'$2a$10$a1.Lk61WVVH/J8/3pJ/GbOdugor0s0e21tMXK3wUfMRmfYrMVQLW6', N'Amy Vincent', N'0905432692', N'amyvincent@yahoo.com', CAST(N'1998-12-16' AS Date), N'705-772 Per Av.', N'Sóc Trang', N'avt.png', NULL)
 INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (5, N'selmawhitaker', N'$2a$10$Q5Dplj9TADom7tzRIAALseT9JBuF9Scsz5wBzWgJbWd.AMMDBhISa', N'Selma Whitaker', N'0806514932', N'selmawhitaker4705@gmail.com', CAST(N'1995-02-11' AS Date), N'7828 Vestibulum Ave', N'C?n Tho', N'avt.png', NULL)
-INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (6, N'mailesargent', N'$2a$10$IDaMrVJoXXiDJCDTMHEnf.NMY53BYKsjyToDob/faADg0ISKdyjuK', N'Maile Sargent', N'0186181326', N'mailesargent4847@google.com', CAST(N'2002-11-22' AS Date), N'975-4947 Iaculis Street', N'H?u Giang', N'avt.png', NULL)
+INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (6, N'mailesargent', N'$2a$10$idaMrVJoXXidJCDTMHEnf.NMY53BYKsjyToDob/faADg0ISKdyjuK', N'Maile Sargent', N'0186181326', N'mailesargent4847@google.com', CAST(N'2002-11-22' AS Date), N'975-4947 Iaculis Street', N'H?u Giang', N'avt.png', NULL)
 INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (7, N'kessiewelch', N'$2a$10$RO8xZkMsU2oPdX0GoM1jhuxjfTFM00dbYWsUie7snQYc3zR9EqFta', N'Kessie Welch', N'0732975361', N'kessiewelch@yahoo.com', CAST(N'2000-09-11' AS Date), N'863-951 Eleifend Rd.', N'B?c K?n', N'avt.png', NULL)
 INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (8, N'roaryfleming', N'$2a$10$wd3kQ60Sqo.Y0anIl6Qt1eFgEtFcsxqYNG5wnRb2eYrXjMxDaRD2u', N'Roary Fleming', N'0278246592', N'roaryfleming4304@gmail.com', CAST(N'2003-11-11' AS Date), N'P.O. Box 523, 849 Purus, Ave', N'Ninh Thu?n', N'avt.png', NULL)
 INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (9, N'nevadarich', N'$2a$10$uyfFZdy1i1MihBQDmby/l.aJHWDX1StHkGDIIXfMUPW2t6UPrO0ES', N'Nevada Rich', N'0628543441', N'nevadarich@gmail.com', CAST(N'1997-05-07' AS Date), N'8871 Aliquam Avenue', N'Phú Yên', N'avt.png', NULL)
 INSERT customers (id, username, password, fullname, phone, email, birthday, street, city, image, token) VALUES (10, N'isabellepotts', N'$2a$10$RPZAn4lZ/UZKX5JAYRBrS.aIcAGpknIen66nfGS.aGkUmOxLV0tmS', N'Isabelle Potts', N'0228149711', N'isabellepotts@gmail.com', CAST(N'1994-06-21' AS Date), N'917-5078 Nisi. Street', N'Qu?ng Nam', N'avt.png', NULL)
 SET IDENTITY_INSERT customers OFF
+
+INSERT roles (id, name) VALUES (N'CUST', N'Customers')
+INSERT roles (id, name) VALUES (N'STAF', N'Staffs')
+INSERT roles (id, name) VALUES (N'DIRE', N'Directors')
+
+SET IDENTITY_INSERT authorities ON 
+INSERT authorities (id, customer_id, role_id) VALUES (1, 1, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (2, 2, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (3, 3, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (4, 4, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (5, 5, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (6, 6, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (7, 7, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (8, 8, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (9, 9, N'CUST')
+INSERT authorities (id, customer_id, role_id) VALUES (10, 10, N'CUST')
+SET IDENTITY_INSERT authorities OFF
 
 SET IDENTITY_INSERT stores ON 
 INSERT stores (id, name, phone, email, street, city, state, zip_code) VALUES (1, N'Store 1', N'0812142332', N'store1@hfurniture.com', N'32 Trần Duy Hung', N'Hà Nội', N'Vietnam', N'862643')
@@ -223,6 +249,10 @@ INSERT stocks (id, quantity, store_id, product_id) VALUES (9, 15, 2, 7)
 INSERT stocks (id, quantity, store_id, product_id) VALUES (10, 80, 2, 18)
 SET IDENTITY_INSERT stocks OFF
 GO
+ALTER TABLE authorities  WITH CHECK ADD  CONSTRAINT FK_authorities_roles FOREIGN KEY(role_id)
+REFERENCES roles (id) ON UPDATE CASCADE ON DELETE CASCADE
+ALTER TABLE authorities  WITH CHECK ADD  CONSTRAINT FK_authorities_customers FOREIGN KEY(customer_id)
+REFERENCES customers (id) ON UPDATE CASCADE ON DELETE CASCADE
 -- products
 ALTER TABLE products ADD CONSTRAINT FK_products_categories FOREIGN KEY (category_id)
 REFERENCES categories (id) ON DELETE CASCADE ON UPDATE CASCADE
