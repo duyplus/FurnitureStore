@@ -1,5 +1,5 @@
 <header class="header style-01 header-dark header-transparent header-sticky" id="header"
-		xmlns:th="http://www.thymeleaf.org">
+		xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<div class="header-wrap-stick">
 		<div class="header-position">
 			<div class="header-middle">
@@ -202,7 +202,7 @@
 										<span class="flaticon-profile"></span>
 									</a>
 									<ul class="sub-menu">
-										<th:block th:unless="${#request.remoteUser}">
+										<th:block sec:authorize="!isAuthenticated()">
 											<li class="menu-item is-active">
 												<a th:href="@{auth/login/form}">Login</a>
 											</li>
@@ -210,7 +210,7 @@
 												<a th:href="@{auth/register}">Register</a>
 											</li>
 										</th:block>
-										<th:block th:if="${#request.remoteUser}">
+										<th:block sec:authorize="isAuthenticated()">
 											<li class="menu-item is-active">
 												<a th:href="@{/admin}">Dashboard</a>
 											</li>

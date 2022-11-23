@@ -1,13 +1,17 @@
 const app = angular.module("myApp", []);
 app.constant("HOST", "http://localhost:8080");
+app.config(function ($httpProvider, $qProvider) {
+    // $httpProvider.interceptors.push("authInterceptor");
+});
 app.run(function ($http, $rootScope, HOST) {
     $http.get(`${HOST}/auth/authentication`).then(resp => {
         if (resp.data) {
             $auth = $rootScope.$auth = resp.data;
             $http.defaults.headers.common["Authorization"] = $auth.token;
+            console.log($auth)
         }
     });
-})
+});
 app.controller("myCtrl", function ($scope, $http, HOST) {
     var sweetalert = function (text) {
         Swal.fire({
@@ -75,9 +79,8 @@ app.controller("myCtrl", function ($scope, $http, HOST) {
     // Lưu giỏ hàng
     $scope.cart.loadFromLocalStorage();
     $scope.order = {
-        createDate: new Date(),
-        address: "",
-        account: { username: $("#username").text() },
+        orderDate: new Date(),
+        customer: { id: $("#id").text() },
         get orderDetails() {
             return $scope.cart.items.map(item => {
                 return {

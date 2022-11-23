@@ -123,13 +123,13 @@ public class WebSecurityConfig {
 //                .antMatchers("/**", "/admin/**", "/auth/**", "/api/**").permitAll()
 //                .anyRequest().authenticated();
         // Đăng nhập
-        http.formLogin().loginPage("/auth/login/form").loginProcessingUrl("/auth/login")
+        http.formLogin().loginPage("/auth/login").loginProcessingUrl("/auth/login")
                 .defaultSuccessUrl("/auth/login/success", false).failureUrl("/auth/login/error");
         http.rememberMe().tokenValiditySeconds(86400); // remember me
         // Điều khiển lỗi truy cập không đúng quyền
         http.exceptionHandling().accessDeniedPage("/auth/unauthoried");
         // Đăng xuất
-        http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login/form").invalidateHttpSession(true).clearAuthentication(true);
+        http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login").invalidateHttpSession(true).clearAuthentication(true);
         http.headers().frameOptions().sameOrigin();
 
         http.exceptionHandling().authenticationEntryPoint(jwtAuthentication);

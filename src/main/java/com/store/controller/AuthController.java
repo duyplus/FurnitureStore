@@ -38,7 +38,6 @@ public class AuthController {
         return "auth/login";
     }
 
-    //
     @RequestMapping("/auth/login/success")
     public String logInSuccess(Model model, @ModelAttribute("customer") Customer customer) {
         model.addAttribute("message", "Logged in successfully");
@@ -98,7 +97,7 @@ public class AuthController {
         model.addAttribute("token", token);
         if (customer == null) {
             model.addAttribute("message", "Invalid token!");
-            return "redirect:/auth/login/form";
+            return "redirect:/auth/login";
         }
         return "auth/reset-password";
     }
@@ -110,7 +109,7 @@ public class AuthController {
             model.addAttribute("message", "Invalid token!");
         } else {
             model.addAttribute("message", "You have successfully changed your password!");
-            response.addHeader("refresh", "2;url=/auth/login/form");
+            response.addHeader("refresh", "2;url=/auth/login");
         }
         return "auth/reset-password";
     }

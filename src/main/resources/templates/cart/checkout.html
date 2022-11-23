@@ -28,13 +28,13 @@
 											<div class="hs-billing-fields">
 												<h3>Billing details</h3>
 												<div class="hs-billing-fields__field-wrapper">
-													<span class="d-none" id="username">[[${#request.remoteUser}]]</span>
+													<input type="text" class="d-none" id="id" ng-value="$auth.customer.id">
 													<p class="form-row form-row-first validate-required">
 														<label>
 															Fullname&nbsp;<abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="text" class="input-text" ng-value="fullname">
+															<input type="text" class="input-text" ng-value="$auth.customer.fullname">
 														</span>
 													</p>
 													<p class="form-row form-row-last validate-required">
@@ -42,7 +42,7 @@
 															Phone&nbsp;<abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="text" class="input-text" ng-model="">
+															<input type="text" class="input-text" ng-value="$auth.customer.phone">
 														</span>
 													</p>
 													<p class="form-row form-row-wide validate-required">
@@ -50,15 +50,15 @@
 															Email <abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="email" class="input-text" ng-model="">
+															<input type="email" class="input-text" ng-value="$auth.customer.email">
 														</span>
 													</p>
 													<p class="form-row form-row-wide validate-required">
 														<label>
-															Street &nbsp;<abbr class="required">*</abbr>
+															Street&nbsp;<abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="text" class="input-text">
+															<input type="text" class="input-text" ng-value="$auth.customer.street">
 														</span>
 													</p>
 													<p class="form-row form-row-wide validate-required">
@@ -66,11 +66,7 @@
 															City / Province&nbsp;<abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<select tabindex="-1" aria-hidden="true">
-																<option value="">Select a province...</option>
-																<option value="US">Hồ Chí Minh</option>
-																<option value="VN">Hà Nội</option>
-															</select>
+															<input type="text" class="input-text" ng-value="$auth.customer.city">
 														</span>
 													</p>
 												</div>
@@ -85,7 +81,7 @@
 															Order notes&nbsp;<span class="optional">(optional)</span>
 														</label>
 														<span class="hs-input-wrapper">
-															<textarea class="input-text bg-white" ng-model=""
+															<textarea class="input-text bg-white"
 																placeholder="Notes about your order, e.g. special notes for delivery."
 																rows="5" cols="5"></textarea>
 														</span>
@@ -145,30 +141,24 @@
 												<li class="wc_payment_method payment_method_cod">
 													<input type="radio" class="input-radio" name="payment_method"
 														value="cod" checked="checked">
-													<label for="payment_method_cod">
-														Cash on delivery </label>
+													<label>Cash on delivery</label>
 												</li>
 												<li class="wc_payment_method payment_method_bacs">
 													<input type="radio" class="input-radio" name="payment_method"
 														value="bacs" disabled>
-													<label for="payment_method_bacs">
-														Direct bank transfer (Updating) </label>
+													<label>Direct bank transfer (Updating)</label>
 												</li>
 											</ul>
 											<div class="form-row place-order">
 												<div class="hs-terms-and-conditions-wrapper">
 													<div class="hs-privacy-policy-text">
-														<p>Your personal data will be
-															used to process your order, support your experience
-															throughout
-															this website, and for other purposes described in our <a
-																href="javascript:void(0);"
-																class="hs-privacy-policy-link">privacy policy</a>.</p>
+														<p>Your personal data will be used to process your order, support your experience
+															throughout this website, and for other purposes described in our <a
+																href="javascript:void(0);" class="hs-privacy-policy-link">privacy policy</a>.</p>
 													</div>
 												</div>
-												<button type="submit" class="button alt" name="hs_checkout_place_order"
-													id="place_order" value="Place order" data-value="Place order">Place
-													order
+												<button type="submit" class="button alt" ng-click="order.purchase()">
+													Place order
 												</button>
 											</div>
 										</div>
