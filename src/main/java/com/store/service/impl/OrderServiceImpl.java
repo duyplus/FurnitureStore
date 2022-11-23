@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order findById(int id) {
-        return orderRepository.findById(id).get();
+        return orderRepository.findById(id).orElse(null);
     }
 
     @Override
