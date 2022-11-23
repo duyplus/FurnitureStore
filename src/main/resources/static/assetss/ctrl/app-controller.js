@@ -67,6 +67,20 @@ app.factory('storeService', function () {
     }
 });
 
+app.factory('categoryService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
 app.directive('convertDate', function () {
     return {
         require: 'ngModel',

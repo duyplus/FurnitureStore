@@ -1,6 +1,7 @@
 package com.store.repository;
 
 import com.store.entity.Product;
+import com.store.temporary.TopProduct;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +30,15 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             ") AS t\n" +
             "ORDER BY NEWID()", nativeQuery = true)
     List<Product> randProdLessThanOrEqual();
+
+    @Modifying
+    @Query(value = "SELECT DISTINCT p.id as id, p.name as product_name, p.list_price as product_price, od.quantity as order_quantity,\n" +
+            "\tp.model_year as product_modelyear, p.image product_image, b.name as brand_name,o.order_date as order_date\n" +
+            "\tFROM order_details od\n" +
+            "\tJOIN orders o ON o.id = od.order_id\n" +
+            "\tJOIN products as p ON p.id = od.product_id\n" +
+            "\tJOIN brands b ON b.id = p.brand_id\n" +
+            "\tWHERE FORMAT(cast(o.order_date as date),'MM-yyyy') = ?1\n" +
+            "\tORDER BY order_quantity DESC", nativeQuery = true)
+    List<TopProduct> getTopProduct(String date);
 }

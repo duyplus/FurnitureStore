@@ -3,6 +3,9 @@ package com.store.rest;
 import com.store.entity.Order;
 import com.store.exception.ResourceNotFoundException;
 import com.store.repository.OrderRepository;
+import com.store.temporary.OrderDATE;
+import com.store.temporary.TopOrder;
+import com.store.temporary.TopProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +55,19 @@ public class OrderRestController {
                 .orElseThrow(() -> new ResourceNotFoundException("Order not exist with id: " + id));
         orderRepository.delete(findId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("date")
+    public List<OrderDATE> getOrderDate() {
+        return orderRepository.getOrderDate();
+    }
+
+    @GetMapping("getTopOrder/{date}")
+    public ResponseEntity<List<TopOrder>> getTopProduct(@PathVariable String date) {
+        List<TopOrder> listOrder = orderRepository.getTopOrder(date);
+        if (listOrder.isEmpty()) {
+            return new ResponseEntity<List<TopOrder>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<TopOrder>>(listOrder, HttpStatus.OK);
     }
 }
