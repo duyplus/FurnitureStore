@@ -28,13 +28,14 @@
 											<div class="hs-billing-fields">
 												<h3>Billing details</h3>
 												<div class="hs-billing-fields__field-wrapper">
-													<input type="text" class="d-none" id="id" ng-value="$auth.customer.id">
+													<input type="text" class="d-none" id="user" ng-value="$auth.customer.id">
+													<input type="text" class="d-none" ng-value="order.orderDate | date:'yyyy-MM-dd'">
 													<p class="form-row form-row-first validate-required">
 														<label>
 															Fullname&nbsp;<abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="text" class="input-text" ng-value="$auth.customer.fullname">
+															<input type="text" class="input-text" ng-value="$auth.customer.fullname" disabled>
 														</span>
 													</p>
 													<p class="form-row form-row-last validate-required">
@@ -42,7 +43,7 @@
 															Phone&nbsp;<abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="text" class="input-text" ng-value="$auth.customer.phone">
+															<input type="text" class="input-text" ng-value="$auth.customer.phone" disabled>
 														</span>
 													</p>
 													<p class="form-row form-row-wide validate-required">
@@ -50,7 +51,7 @@
 															Email <abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="email" class="input-text" ng-value="$auth.customer.email">
+															<input type="email" class="input-text" ng-value="$auth.customer.email" disabled>
 														</span>
 													</p>
 													<p class="form-row form-row-wide validate-required">
@@ -58,7 +59,7 @@
 															Street&nbsp;<abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="text" class="input-text" ng-value="$auth.customer.street">
+															<input type="text" class="input-text" ng-value="$auth.customer.street" disabled>
 														</span>
 													</p>
 													<p class="form-row form-row-wide validate-required">
@@ -66,7 +67,7 @@
 															City / Province&nbsp;<abbr class="required">*</abbr>
 														</label>
 														<span class="hs-input-wrapper">
-															<input type="text" class="input-text" ng-value="$auth.customer.city">
+															<input type="text" class="input-text" ng-value="$auth.customer.city" disabled>
 														</span>
 													</p>
 												</div>
@@ -157,7 +158,7 @@
 																href="javascript:void(0);" class="hs-privacy-policy-link">privacy policy</a>.</p>
 													</div>
 												</div>
-												<button type="submit" class="button alt" ng-click="order.purchase()">
+												<button type="submit" class="button alt" id="place_order" ng-click="order.purchase()">
 													Place order
 												</button>
 											</div>

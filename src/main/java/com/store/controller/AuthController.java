@@ -6,6 +6,7 @@ import com.store.service.CustomerService;
 import com.store.service.MailerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -26,6 +27,9 @@ public class AuthController {
     @Autowired
     MailerService mailer;
 
+    @Autowired
+    private PasswordEncoder pe;
+
     @CrossOrigin("*")
     @ResponseBody
     @RequestMapping("/auth/authentication")
@@ -33,15 +37,9 @@ public class AuthController {
         return session.getAttribute("authentication");
     }
 
-    @RequestMapping("/auth/login/form")
-    public String logInForm(Model model, @ModelAttribute("customer") Customer customer) {
+    @RequestMapping("/auth/login")
+    public String logInForm(@ModelAttribute("customer") Customer customer) {
         return "auth/login";
-    }
-
-    @RequestMapping("/auth/login/success")
-    public String logInSuccess(Model model, @ModelAttribute("customer") Customer customer) {
-        model.addAttribute("message", "Logged in successfully");
-        return "redirect:/";
     }
 
     @RequestMapping("/auth/login/error")
@@ -72,6 +70,7 @@ public class AuthController {
             model.addAttribute("message", "Please correct the error below!");
             return "auth/register";
         }
+        customer.setPassword(pe.encode(customer.getPassword()));
         customerService.create(customer);
         model.addAttribute("message", "New account registration successful!");
         response.addHeader("refresh", "2;url=/auth/login");
@@ -79,7 +78,7 @@ public class AuthController {
     }
 
     @GetMapping("/auth/forgot-password")
-    public String forgotPasswordForm(Model model) {
+    public String forgotPasswordForm() {
         return "auth/forgot-password";
     }
 

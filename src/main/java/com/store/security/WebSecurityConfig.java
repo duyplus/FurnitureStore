@@ -1,8 +1,6 @@
 package com.store.security;
 
 import com.store.entity.Customer;
-import com.store.payload.JwtAuthentication;
-import com.store.payload.JwtRequestFilter;
 import com.store.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,14 +13,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -43,16 +39,10 @@ public class WebSecurityConfig {
     CustomerService customerService;
 
     @Autowired
-    HttpSession session;
-
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private JwtAuthentication jwtAuthentication;
-
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+    HttpSession session;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -124,17 +114,13 @@ public class WebSecurityConfig {
 //                .anyRequest().authenticated();
         // Đăng nhập
         http.formLogin().loginPage("/auth/login").loginProcessingUrl("/auth/login")
-                .defaultSuccessUrl("/auth/login/success", false).failureUrl("/auth/login/error");
+                .defaultSuccessUrl("/", false).failureUrl("/auth/login/error");
         http.rememberMe().tokenValiditySeconds(86400); // remember me
         // Điều khiển lỗi truy cập không đúng quyền
         http.exceptionHandling().accessDeniedPage("/auth/unauthoried");
         // Đăng xuất
         http.logout().logoutUrl("/auth/logout").logoutSuccessUrl("/auth/login").invalidateHttpSession(true).clearAuthentication(true);
         http.headers().frameOptions().sameOrigin();
-
-        http.exceptionHandling().authenticationEntryPoint(jwtAuthentication);
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         // OAuth2 - Đăng nhâp từ mang xã hôi
 //        http.oauth2Login().loginPage("/auth/login/form").defaultSuccessUrl("/oauth2/login/success", true)
 //                .failureUrl("/auth/login/error").authorizationEndpoint().baseUri("/oauth2/authorization");

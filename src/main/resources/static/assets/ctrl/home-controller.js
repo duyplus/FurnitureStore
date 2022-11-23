@@ -13,7 +13,7 @@ app.run(function ($http, $rootScope, HOST) {
     });
 });
 app.controller("myCtrl", function ($scope, $http, HOST) {
-    var sweetalert = function (text) {
+    let sweetalert = function (text) {
         Swal.fire({
             icon: "success",
             title: text,
@@ -27,7 +27,7 @@ app.controller("myCtrl", function ($scope, $http, HOST) {
         items: [],
         // Them sp vao gio hang
         add(id) {
-            var item = this.items.find(item => item.id == id);
+            let item = this.items.find(item => item.id == id);
             if (item) {
                 item.qty++;
                 this.saveToLocalStorage();
@@ -42,7 +42,7 @@ app.controller("myCtrl", function ($scope, $http, HOST) {
         },
         // Xoa sp khoi gio hang
         remove(id) {
-            var index = this.items.findIndex(item => item.id == id);
+            let index = this.items.findIndex(item => item.id == id);
             this.items.splice(index, 1);// xoa phan tu
             this.saveToLocalStorage();
         },
@@ -67,36 +67,38 @@ app.controller("myCtrl", function ($scope, $http, HOST) {
         },
         // Luu gio hang vao localstorage
         saveToLocalStorage() {
-            var json = JSON.stringify(angular.copy(this.items));
+            let json = JSON.stringify(angular.copy(this.items));
             localStorage.setItem("cart", json);
         },
         // Doc gio hang vao local storage
         loadFromLocalStorage() {
-            var json = localStorage.getItem("cart");
+            let json = localStorage.getItem("cart");
             this.items = json ? JSON.parse(json) : [];
         },
     }
-    // Lưu giỏ hàng
+    // Luu gio hang
     $scope.cart.loadFromLocalStorage();
     $scope.order = {
         orderDate: new Date(),
-        customer: { id: $("#id").text() },
+        customer: { id: $("#user").text() },
         get orderDetails() {
             return $scope.cart.items.map(item => {
                 return {
                     product: { id: item.id },
                     price: item.listPrice,
-                    quantity: item.qty
+                    quantity: item.qty,
+                    discount: item.discount,
+                    description: item.description
                 }
             });
         },
         purchase() {
-            var order = angular.copy(this);
-            // Thực hiện đặt hàng
+            let order = angular.copy(this);
+            // Thuc hien dat hang
             $http.post(HOST + "/api/order", order).then(resp => {
                 sweetalert("Đặt hàng thành công!");
-                $scope.cart.clear();// xóa
-                location.href = "/order/detail/" + resp.data.id; // chuyển đến trang chi tiết dơn hàng
+                $scope.cart.clear();// xaa trong gio hang
+                location.href = "/order/detail/" + resp.data.id; // chuyen den trang chi tiet don hang
             }).catch(error => {
                 sweetalert("Đặt hàng lỗi!");
                 console.log("Error", error);
