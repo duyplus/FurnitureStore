@@ -64,12 +64,8 @@ public class AuthController {
     }
 
     @PostMapping("/auth/register")
-    public String signUpSuccess(Model model, @Validated @ModelAttribute("customer") Customer customer, Errors error,
+    public String signUpSuccess(Model model, @Validated @ModelAttribute("customer") Customer customer,
                                 HttpServletResponse response) {
-        if (error.hasErrors()) {
-            model.addAttribute("message", "Please correct the error below!");
-            return "auth/register";
-        }
         customer.setPassword(pe.encode(customer.getPassword()));
         customerService.create(customer);
         model.addAttribute("message", "New account registration successful!");
@@ -113,19 +109,19 @@ public class AuthController {
         return "auth/reset-password";
     }
 
-//    @GetMapping("/auth/change-password")
-//    public String changePasswordForm(Model model) {
-//        return "auth/change-password";
-//    }
+    @GetMapping("/auth/change-password")
+    public String changePasswordForm(Model model) {
+        return "auth/change-password";
+    }
 
-//    @PostMapping("/auth/change-password")
-//    public String processChangePassword(Model model, @RequestParam("username") String username,
-//                                        @RequestParam("password") String newPassword) {
-//        Customer account = customerService.findByUsername(username);
-//        customerService.changePassword(account, newPassword);
-//        model.addAttribute("message", "Change password successfully!");
-//        return "auth/change-password";
-//    }
+    @PostMapping("/auth/change-password")
+    public String processChangePassword(Model model, @RequestParam("username") String username,
+                                        @RequestParam("password") String newPassword) {
+        Customer account = customerService.findByUsername(username);
+        customerService.changePassword(account, newPassword);
+        model.addAttribute("message", "Change password successfully!");
+        return "auth/change-password";
+    }
 
 //    // OAuth2
 //    @RequestMapping("/oauth2/login/success")

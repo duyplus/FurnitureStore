@@ -26,9 +26,9 @@ public class OrderController {
 
     @RequestMapping("/cart/checkout")
     public String checkout() {
-        if (!(request.isSecure())) {
-            return "redirect:/auth/login";
-        }
+//        if (!(request.isUserInRole("CUST"))) {
+//            return "redirect:/auth/login";
+//        }
         return "cart/checkout";
     }
 

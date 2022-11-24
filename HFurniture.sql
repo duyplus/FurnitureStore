@@ -30,8 +30,8 @@ CREATE TABLE authorities (
 );
 CREATE TABLE customers (
 	id INT IDENTITY (1, 1) PRIMARY KEY,
-	username NVARCHAR (100) NOT NULL,
-	password NVARCHAR (255) NOT NULL,
+	username VARCHAR (100) NOT NULL,
+	password VARCHAR (255) NOT NULL,
 	fullname NVARCHAR (255) NOT NULL,
 	phone VARCHAR (15) NOT NULL,
 	email VARCHAR (255) NOT NULL,
