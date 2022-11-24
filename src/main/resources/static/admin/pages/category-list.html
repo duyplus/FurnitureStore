@@ -23,11 +23,20 @@
                             <tr>
                                 <th>Mã danh mục</th>
                                 <th>Tên danh mục</th>
-                                <th>Hình ảnh</th>
                                 <th>Tuỳ chọn</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                        <tr ng-repeat="item in items">
+                            <th >{{item.id}}</th>
+                            <th>{{item.name}}</th>
+                            <th>
+                                <a href="admin/index.html/#!category-form" ng-click="edit(item)">
+                                    <i class="las la-pen text-info"></i>
+                                </a>
+                            </th>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

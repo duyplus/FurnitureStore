@@ -1,0 +1,416 @@
+<header class="header style-01 header-dark header-transparent header-sticky" id="header"
+		xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<div class="header-wrap-stick">
+		<div class="header-position">
+			<div class="header-middle">
+				<div class="hs-menu-wapper"></div>
+				<div class="header-middle-inner">
+					<div class="header-search-menu">
+						<ul class="wpml-menu">
+							<li class="menu-item hs-dropdown block-language">
+								<a data-hs="hs-dropdown" href="javascript:void(0);">
+									<img alt="en" src="assets/images/flags/en.png">
+									English
+								</a>
+								<span class="toggle-submenu"></span>
+								<ul class="sub-menu">
+									<li class="menu-item">
+										<a href="javascript:void(0);">
+											<img alt="vn" src="assets/images/flags/vn.png">
+											Vietnamese
+										</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<div class="header-logo-nav">
+						<div class="header-logo">
+							<a href="/">
+								<img alt="H Furniture" class="logo" src="assets/images/logo.png">
+							</a>
+						</div>
+						<div class="box-header-nav menu-center">
+							<ul class="clone-main-menu hs-clone-mobile-menu hs-nav main-menu" id="menu-primary-menu">
+								<li class="menu-item menu-item-type-post_type menu-item-230">
+									<a class="hs-menu-item-title" href="/" title="Home">Home</a>
+								</li>
+								<li class="menu-item menu-item-type-post_type menu-item-229">
+									<a class="hs-menu-item-title" href="/shop" title="Shop">Shop</a>
+								</li>
+								<li
+									class="menu-item menu-item-type-post_type menu-item-object-megamenu menu-item-228 parent parent-megamenu item-megamenu menu-item-has-children">
+									<a class="hs-menu-item-title" href="javascript:void(0);"
+										title="Category">Category</a>
+									<span class="toggle-submenu"></span>
+									<div class="submenu megamenu megamenu-shop">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="hs-listitem style-01">
+													<div class="listitem-inner">
+														<h4 class="title">Shop Layouts</h4>
+														<ul class="listitem-list">
+															<li>
+																<a href="javascript:void(0);">Shop Grid</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">No Sidebar</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">Left Sidebar</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="hs-listitem style-01">
+													<div class="listitem-inner">
+														<h4 class="title">Product Layouts </h4>
+														<ul class="listitem-list">
+															<li>
+																<a href="javascript:void(0);">
+																	Extra Sidebar
+																</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">
+																	Right Sidebar</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">
+																	Left Sidebar</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="hs-listitem style-01">
+													<div class="listitem-inner">
+														<h4 class="title">
+															Product Extends </h4>
+														<ul class="listitem-list">
+															<li>
+																<a href="javascript:void(0);">
+																	Product Bundle
+																</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">
+																	Product 360 Deg</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">
+																	Video</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="hs-listitem style-01">
+													<div class="listitem-inner">
+														<h4 class="title">
+															Other Pages </h4>
+														<ul class="listitem-list">
+															<li>
+																<a href="javascript:void(0);">Cart</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">Wishlist</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">Checkout</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="hs-listitem style-01">
+													<div class="listitem-inner">
+														<h4 class="title">
+															Product Types </h4>
+														<ul class="listitem-list">
+															<li>
+																<a href="javascript:void(0);">
+																	Simple</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">
+																	Variable</a>
+															</li>
+															<li>
+																<a href="javascript:void(0);">
+																	Grouped</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="menu-item menu-item-type-post_type">
+									<a class="hs-menu-item-title" href="/about" title="About">About</a>
+								</li>
+								<li class="menu-item menu-item-type-post_type">
+									<a class="hs-menu-item-title" href="/contact" title="Contact">Contact</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="header-control">
+						<div class="header-control-inner">
+							<div class="meta-dreaming">
+								<div class="header-search hs-dropdown">
+									<div class="header-search-inner" data-hs="hs-dropdown">
+										<a class="link-dropdown block-link" href="javascript:void(0);">
+											<span class="flaticon-magnifying-glass-1"></span>
+										</a>
+									</div>
+									<div class="block-search">
+										<form class="form-search block-search-form hs-live-search-form" method="get"
+											role="search">
+											<div class="form-content search-box results-search">
+												<div class="inner">
+													<input autocomplete="off" class="searchfield txt-livesearch input"
+														name="s" placeholder="Search here..." type="text" value="">
+												</div>
+											</div>
+											<div class="category">
+												<select class="category-search-option" name="product_cat"
+													title="product_cat">
+													<option value="0">All Categories</option>
+													<option class="level-0" value="light">Light</option>
+													<option class="level-0" value="chair">Chair</option>
+													<option class="level-0" value="table">Table</option>
+													<option class="level-0" value="bed">Bed</option>
+													<option class="level-0" value="new-arrivals">New arrivals
+													</option>
+													<option class="level-0" value="lamp">Lamp</option>
+													<option class="level-0" value="specials">Specials</option>
+													<option class="level-0" value="sofas">Sofas</option>
+												</select>
+											</div>
+											<button class="btn-submit" type="submit">
+												<span class="flaticon-magnifying-glass-1"></span>
+											</button>
+										</form><!-- block search -->
+									</div>
+								</div>
+								<div class="hs-dropdown-close">x</div>
+								<div class="menu-item block-user block-dreaming hs-dropdown">
+									<a class="block-link" href="javascript:void(0);">
+										<span class="flaticon-profile"></span>
+									</a>
+									<ul class="sub-menu">
+										<th:block sec:authorize="!isAuthenticated()">
+											<li class="menu-item is-active">
+												<a th:href="@{auth/login}">Login</a>
+											</li>
+											<li class="menu-item is-active">
+												<a th:href="@{auth/register}">Register</a>
+											</li>
+										</th:block>
+										<th:block sec:authorize="isAuthenticated()">
+											<li class="menu-item is-active">
+												<a th:href="@{/admin}">Dashboard</a>
+											</li>
+											<li class="menu-item">
+												<a th:href="@{/my-account}">Account details</a>
+											</li>
+											<li class="menu-item">
+												<a th:href="@{/order/list}">Orders</a>
+											</li>
+											<li class="menu-item">
+												<a th:href="@{/auth/logout}">Logout</a>
+											</li>
+										</th:block>
+									</ul>
+								</div>
+								<div class="block-minicart block-dreaming hs-mini-cart hs-dropdown">
+									<div class="shopcart-dropdown block-cart-link" data-hs="hs-dropdown">
+										<a class="block-link link-dropdown" href="javascript:void(0);">
+											<span class="flaticon-cart"></span>
+											<span class="count">{{cart.count}}</span>
+										</a>
+									</div>
+									<div class="widget nt widget_shopping_cart">
+										<div class="widget_shopping_cart_content">
+											<ul class="hs-mini-cart cart_list product_list_widget">
+												<li class="hs-mini-cart-item mini_cart_item"
+													ng-repeat="item in cart.items">
+													<a class="remove remove_from_cart_button" href="javascript:void(0);"
+														ng-click="cart.remove(item.id)">×</a>
+													<a href="/product/detail/{{item.id}}">
+														<img alt="img" class="attachment-hs_thumbnail size-hs_thumbnail"
+															ng-src="assets/images/products/{{item.image}}">{{item.name}}&nbsp;
+													</a>
+													<span class="quantity">
+														{{item.qty}} ×
+														<span class="hs-Price-amount amount">
+															{{item.listPrice | number:0}}<span
+																class="hs-Price-currencySymbol">₫</span>
+														</span>
+													</span>
+												</li>
+											</ul>
+											<p class="hs-mini-cart__total total">
+												<strong>Subtotal:</strong>
+												<span class="hs-Price-amount amount">
+													{{cart.amount | number:0}}<span
+														class="hs-Price-currencySymbol">₫</span>
+												</span>
+											</p>
+											<p class="hs-mini-cart__buttons buttons">
+												<a class="button hs-forward" th:href="@{/cart/view}">View cart</a>
+												<a class="button checkout hs-forward"
+													th:href="@{/cart/checkout}">Checkout</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-mobile">
+		<div class="header-mobile-left">
+			<div class="block-menu-bar">
+				<a class="menu-bar menu-toggle" href="javascript:void(0);">
+					<span></span>
+					<span></span>
+					<span></span>
+				</a>
+			</div>
+			<div class="header-search hs-dropdown">
+				<div class="header-search-inner" data-hs="hs-dropdown">
+					<a class="link-dropdown block-link" href="javascript:void(0);">
+						<span class="flaticon-magnifying-glass-1"></span>
+					</a>
+				</div>
+				<div class="block-search">
+					<form class="form-search block-search-form hs-live-search-form" method="get" role="search">
+						<div class="form-content search-box results-search">
+							<div class="inner">
+								<input autocomplete="off" class="searchfield txt-livesearch input" name="s"
+									placeholder="Search here..." type="text" value="">
+							</div>
+						</div>
+						<div class="category">
+							<select class="category-search-option" name="product_cat" title="product_cat">
+								<option value="0">All Categories</option>
+								<option class="level-0" value="light">Light</option>
+								<option class="level-0" value="chair">Chair</option>
+								<option class="level-0" value="table">Table</option>
+								<option class="level-0" value="bed">Bed</option>
+								<option class="level-0" value="new-arrivals">New arrivals</option>
+								<option class="level-0" value="lamp">Lamp</option>
+								<option class="level-0" value="specials">Specials</option>
+								<option class="level-0" value="sofas">Sofas</option>
+							</select>
+						</div>
+						<button class="btn-submit" type="submit">
+							<span class="flaticon-magnifying-glass-1"></span>
+						</button>
+					</form><!-- block search -->
+				</div>
+			</div>
+			<ul class="wpml-menu">
+				<li class="menu-item hs-dropdown block-language">
+					<a data-hs="hs-dropdown" href="javascript:void(0);">
+						<img alt="en" src="assets/images/flags/en.png">
+						English
+					</a>
+					<span class="toggle-submenu"></span>
+					<ul class="sub-menu">
+						<li class="menu-item">
+							<a href="javascript:void(0);">
+								<img alt="vn" src="assets/images/flags/vn.png">
+								Vietnamese
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="header-mobile-mid">
+			<div class="header-logo">
+				<a href="/"><img class="logo" th:src="@{/assets/images/logo.png}"></a>
+			</div>
+		</div>
+		<div class="header-mobile-right">
+			<div class="header-control-inner">
+				<div class="meta-dreaming">
+					<div class="menu-item block-user block-dreaming hs-dropdown">
+						<a class="block-link" href="javascript:void(0);">
+							<span class="flaticon-profile"></span>
+						</a>
+						<ul class="sub-menu">
+							<th:block th:unless="${#request.remoteUser}">
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/login/form}">Login</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/register}">Register</a>
+								</li>
+							</th:block>
+							<th:block th:if="${#request.remoteUser}">
+								<li class="menu-item hs-myaccount-navigation-link is-active">
+									<a th:href="@{/admin}">Dashboard</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a href="javascript:void(0);">Account details</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/order/list}">Orders</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/logout}">Logout</a>
+								</li>
+							</th:block>
+						</ul>
+					</div>
+					<div class="block-minicart block-dreaming hs-mini-cart hs-dropdown">
+						<div class="shopcart-dropdown block-cart-link" data-hs="hs-dropdown">
+							<a class="block-link link-dropdown" href="javascript:void(0);">
+								<span class="flaticon-cart"></span>
+								<span class="count">{{cart.count}}</span>
+							</a>
+						</div>
+						<div class="widget nt widget_shopping_cart">
+							<div class="widget_shopping_cart_content">
+								<ul class="hs-mini-cart cart_list product_list_widget">
+									<li class="hs-mini-cart-item mini_cart_item" ng-repeat="item in cart.items">
+										<a class="remove remove_from_cart_button" href="javascript:void(0);"
+											ng-click="cart.remove(item.id)">×</a>
+										<a href="/product/detail/{{item.id}}">
+											<img alt="img" class="attachment-hs_thumbnail size-hs_thumbnail"
+												ng-src="assets/images/products/{{item.image}}">{{item.name}}&nbsp;</a>
+										<span class="quantity">
+											{{item.qty}} ×
+											<span class="hs-Price-amount amount">
+												{{item.listPrice | number:0}}<span
+													class="hs-Price-currencySymbol">₫</span>
+											</span>
+										</span>
+									</li>
+								</ul>
+								<p class="hs-mini-cart__total total"><strong>Subtotal:</strong>
+									<span class="hs-Price-amount amount">
+										{{cart.amount | number:0}}<span class="hs-Price-currencySymbol">₫</span>
+									</span>
+								</p>
+								<p class="hs-mini-cart__buttons buttons">
+									<a class="button hs-forward" th:href="@{/cart/view}">View cart</a>
+									<a class="button checkout hs-forward" th:href="@{/cart/checkout}">Checkout</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>

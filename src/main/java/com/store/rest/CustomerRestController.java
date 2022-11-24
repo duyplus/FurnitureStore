@@ -6,6 +6,7 @@ import com.store.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
 public class CustomerRestController {
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private PasswordEncoder pe;
 
     @GetMapping
     public ResponseEntity<List<Customer>> getAll() {
@@ -35,6 +39,7 @@ public class CustomerRestController {
 
     @PostMapping
     public Customer create(@RequestBody Customer customer) {
+        customer.setPassword(pe.encode(customer.getPassword()));
         return customerRepository.save(customer);
     }
 
@@ -42,6 +47,7 @@ public class CustomerRestController {
     public ResponseEntity<Customer> update(@PathVariable("id") int id, @RequestBody Customer customer) {
         Customer findId = customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not exist with id: " + id));
+        customer.setPassword(pe.encode(customer.getPassword()));
         customerRepository.save(customer);
         return ResponseEntity.ok(findId);
     }

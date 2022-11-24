@@ -21,7 +21,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer findById(int id) {
-        return customerRepository.findById(id).get();
+        return customerRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Customer findByUsername(String username) {
+        return customerRepository.findByUsername(username);
     }
 
     @Override
@@ -37,5 +42,20 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void delete(int id) {
         customerRepository.deleteById(id);
+    }
+
+    @Override
+    public Customer findUsernameByEmail(String email) {
+        return customerRepository.findUsernameByEmail(email);
+    }
+
+    @Override
+    public Customer findByEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
+    @Override
+    public Customer findByToken(String token) {
+        return customerRepository.findByToken(token);
     }
 }

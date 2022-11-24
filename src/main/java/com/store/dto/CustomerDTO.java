@@ -1,7 +1,8 @@
 package com.store.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,32 +12,33 @@ import java.util.Date;
 /**
  * A DTO for the {@link com.store.entity.Customer} entity
  */
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
-@Getter
 public class CustomerDTO implements Serializable {
-    private final Integer id;
+    private Integer id;
     @Size(max = 100)
     @NotNull
-    private final String username;
+    private String username;
     @Size(max = 255)
     @NotNull
-    private final String password;
+    private String password;
     @Size(max = 255)
     @NotNull
-    private final String fullname;
+    private String fullname;
     @Size(max = 15)
     @NotNull
-    private final String phone;
+    private String phone;
     @Size(max = 255)
     @NotNull
-    private final String email;
-    private final Date birthday;
+    private String email;
+    private Date birthday;
     @Size(max = 255)
-    private final String street;
+    private String street;
     @Size(max = 100)
-    private final String city;
+    private String city;
     @Size(max = 255)
-    private final String image;
+    private String image;
     @Size(max = 20)
-    private final String token;
+    private String token;
 }

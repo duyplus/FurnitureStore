@@ -3,7 +3,10 @@ package com.store.rest;
 import com.store.entity.Product;
 import com.store.exception.ResourceNotFoundException;
 import com.store.repository.ProductRepository;
+import com.store.temporary.TopProduct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,5 +55,14 @@ public class ProductRestController {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not exist with id: " + id));
         productRepository.delete(findId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("getTopProduct/{date}")
+    public ResponseEntity<List<TopProduct>> getTopProduct(@PathVariable String date) {
+        List<TopProduct> listProduct = productRepository.getTopProduct(date);
+        if (listProduct.isEmpty()) {
+            return new ResponseEntity<List<TopProduct>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<TopProduct>>(listProduct, HttpStatus.OK);
     }
 }

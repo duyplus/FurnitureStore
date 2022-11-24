@@ -10,9 +10,17 @@ public interface CustomerService {
 
     Customer findById(int id);
 
+    Customer findByUsername(String username);
+
     Customer create(Customer customer);
 
     Customer update(Customer customer);
 
     void delete(int id);
+
+    Customer findUsernameByEmail(String email);
+
+    Customer findByEmail(String email);
+
+    Customer findByToken(String token);
 }

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+	<main class="product-items">
+		<div class="banner-wrapper has_background">
+			<img src="assets/images/banner-for-all2.jpg" class="img-responsive attachment-1920x447 size-1920x447">
+			<div class="banner-wrapper-inner">
+				<h1 class="page-title">Checkout</h1>
+				<div role="navigation" aria-label="Breadcrumbs" class="breadcrumb-trail breadcrumbs">
+					<ul class="trail-items breadcrumb">
+						<li class="trail-item trail-begin"><a href="javascript:void(0)l"><span>Home</span></a></li>
+						<li class="trail-item trail-end active"><span>Checkout</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="site-main main-container no-sidebar">
+			<div class="container">
+				<div class="row">
+					<div class="main-content col-md-12">
+						<div class="page-main-content">
+							<div class="nt">
+								<form class="checkout hs-checkout">
+									<div class="col2-set" id="customer_details">
+										<div class="col-1">
+											<div class="hs-billing-fields">
+												<h3>Billing details</h3>
+												<div class="hs-billing-fields__field-wrapper">
+													<input type="text" class="d-none" id="user" ng-value="$auth.customer.id">
+													<input type="text" class="d-none" ng-value="order.orderDate | date:'yyyy-MM-dd'">
+													<p class="form-row form-row-first validate-required">
+														<label>
+															Fullname&nbsp;<abbr class="required">*</abbr>
+														</label>
+														<span class="hs-input-wrapper">
+															<input type="text" class="input-text" ng-value="$auth.customer.fullname" disabled>
+														</span>
+													</p>
+													<p class="form-row form-row-last validate-required">
+														<label>
+															Phone&nbsp;<abbr class="required">*</abbr>
+														</label>
+														<span class="hs-input-wrapper">
+															<input type="text" class="input-text" ng-value="$auth.customer.phone" disabled>
+														</span>
+													</p>
+													<p class="form-row form-row-wide validate-required">
+														<label>
+															Email <abbr class="required">*</abbr>
+														</label>
+														<span class="hs-input-wrapper">
+															<input type="email" class="input-text" ng-value="$auth.customer.email" disabled>
+														</span>
+													</p>
+													<p class="form-row form-row-wide validate-required">
+														<label>
+															Street&nbsp;<abbr class="required">*</abbr>
+														</label>
+														<span class="hs-input-wrapper">
+															<input type="text" class="input-text" ng-value="$auth.customer.street" disabled>
+														</span>
+													</p>
+													<p class="form-row form-row-wide validate-required">
+														<label>
+															City / Province&nbsp;<abbr class="required">*</abbr>
+														</label>
+														<span class="hs-input-wrapper">
+															<input type="text" class="input-text" ng-value="$auth.customer.city" disabled>
+														</span>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="col-2">
+											<div class="hs-additional-fields">
+												<h3>Additional information</h3>
+												<div class="hs-additional-fields__field-wrapper">
+													<p class="form-row notes">
+														<label>
+															Order notes&nbsp;<span class="optional">(optional)</span>
+														</label>
+														<span class="hs-input-wrapper">
+															<textarea class="input-text bg-white"
+																placeholder="Notes about your order, e.g. special notes for delivery."
+																rows="5" cols="5"></textarea>
+														</span>
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<h3 id="order_review_heading">Your order</h3>
+									<div id="order_review" class="hs-checkout-review-order">
+										<table class="shop_table hs-checkout-review-order-table">
+											<thead>
+												<tr>
+													<th class="product-name">Product</th>
+													<th class="product-total">Total</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="cart_item" ng-repeat="item in cart.items">
+													<td class="product-name w-75">
+														{{item.name}}&nbsp;&nbsp;<strong class="product-quantity">×
+															{{item.qty}}</strong></td>
+													<td class="product-total">
+														<span class="hs-Price-amount amount">
+															{{item.listPrice | number:0}}<span
+																class="hs-Price-currencySymbol">₫</span>
+														</span>
+													</td>
+												</tr>
+											</tbody>
+											<tfoot>
+												<tr class="cart-subtotal">
+													<th>Subtotal</th>
+													<td>
+														<span class="hs-Price-amount amount">
+															{{cart.amount | number : 0}}<span
+																class="hs-Price-currencySymbol">₫</span>
+														</span>
+													</td>
+												</tr>
+												<tr class="order-total">
+													<th>Total</th>
+													<td>
+														<strong>
+															<span class="hs-Price-amount amount">
+																{{cart.amount | number : 0}}<span
+																	class="hs-Price-currencySymbol">₫</span>
+															</span>
+														</strong>
+													</td>
+												</tr>
+											</tfoot>
+										</table>
+										<input type="hidden" name="lang" value="en">
+										<div id="payment" class="hs-checkout-payment">
+											<ul class="wc_payment_methods payment_methods methods">
+												<li class="wc_payment_method payment_method_cod">
+													<input type="radio" class="input-radio" name="payment_method"
+														value="cod" checked="checked">
+													<label>Cash on delivery</label>
+												</li>
+												<li class="wc_payment_method payment_method_bacs">
+													<input type="radio" class="input-radio" name="payment_method"
+														value="bacs" disabled>
+													<label>Direct bank transfer (Updating)</label>
+												</li>
+											</ul>
+											<div class="form-row place-order">
+												<div class="hs-terms-and-conditions-wrapper">
+													<div class="hs-privacy-policy-text">
+														<p>Your personal data will be used to process your order, support your experience
+															throughout this website, and for other purposes described in our <a
+																href="javascript:void(0);" class="hs-privacy-policy-link">privacy policy</a>.</p>
+													</div>
+												</div>
+												<button type="submit" class="button alt" id="place_order" ng-click="order.purchase()">
+													Place order
+												</button>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+<body>
+	<main class="product-items single single-product" th:object="${item}">
+		<div class="banner-wrapper no_background">
+			<div class="banner-wrapper-inner">
+				<nav class="hs-breadcrumb"><a href="#!">Home</a><i class="fa fa-angle-right"></i><a
+						href="javascript:void(0);">[[*{category.name}]]</a>
+					<i class="fa fa-angle-right"></i>[[*{name}]]
+				</nav>
+			</div>
+		</div>
+		<div class="single-thumb-vertical main-container shop-page no-sidebar">
+			<div class="container">
+				<div class="row">
+					<div class="main-content col-md-12">
+						<div class="hs-notices-wrapper"></div>
+						<div id="product-27"
+							class="post-27 product type-product status-publish has-post-thumbnail product_cat-table product_cat-new-arrivals product_cat-lamp product_tag-table product_tag-sock first instock shipping-taxable purchasable product-type-variable has-default-attributes">
+							<div class="main-contain-summary">
+								<div class="contain-left has-gallery">
+									<div class="single-left">
+										<div
+											class="hs-product-gallery hs-product-gallery--with-images hs-product-gallery--columns-4 images">
+											<a href="javascript:void(0);" class="hs-product-gallery__trigger">
+												<img draggable="false" class="emoji" alt="🔍"
+													src="https://s.w.org/images/core/emoji/11/svg/1f50d.svg"></a>
+											<div class="flex-viewport">
+												<figure class="hs-product-gallery__wrapper">
+													<div class="hs-product-gallery__image">
+														<img th:src="@{|/assets/images/products/*{image}|}">
+													</div>
+													<div class="hs-product-gallery__image">
+														<img th:src="@{|/assets/images/products/*{image}|}">
+													</div>
+													<div class="hs-product-gallery__image">
+														<img th:src="@{|/assets/images/products/*{image}|}">
+													</div>
+													<div class="hs-product-gallery__image">
+														<img th:src="@{|/assets/images/products/*{image}|}">
+													</div>
+												</figure>
+											</div>
+											<ol class="flex-control-nav flex-control-thumbs">
+												<li><img src="assets/images/apro131-2-100x100.jpg" alt="img">
+												</li>
+												<li><img src="assets/images/apro134-1-100x100.jpg" alt="img">
+												</li>
+												<li><img src="assets/images/apro132-1-100x100.jpg" alt="img">
+												</li>
+												<li><img src="assets/images/apro133-1-100x100.jpg" alt="img">
+												</li>
+											</ol>
+										</div>
+									</div>
+									<div class="summary entry-summary">
+										<div class="flash">
+											<span class="onnew"><span class="text">New</span></span>
+										</div>
+										<h1 class="product_title entry-title">[[*{name}]]</h1>
+										<p class="price">
+											<del th:if="*{discount >= 1}">
+												<span class="hs-Price-amount amount">
+													[[*{#numbers.formatDecimal(listPrice,0,'COMMA',0,'POINT')}]]<span
+														class="hs-Price-currencySymbol">₫</span>
+												</span>
+											</del><br />
+											<ins>
+												<span class="hs-Price-amount amount">
+													[[*{#numbers.formatDecimal((listPrice-(listPrice*discount/100)),0,'COMMA',0,'POINT')}]]<span
+														class="hs-Price-currencySymbol">₫</span>
+												</span>
+											</ins>
+										</p>
+										<div class="hs-product-details__short-description">
+											<p>[[*{description}]]</p>
+											<ul>
+												<li>Water-resistant fabric with soft lycra detailing inside</li>
+												<li>CLean zip-front, and three piece hood</li>
+												<li>Subtle branding and diagonal panel detail</li>
+											</ul>
+										</div>
+										<form class="variations_form cart">
+											<div class="single_variation_wrap">
+												<div class="hs-variation single_variation"></div>
+												<div class="hs-variation-add-to-cart variations_button">
+													<button th:attr="ng-click=@{|cart.add(*{id})|}"
+														class="single_add_to_cart_button button">
+														Add to cart
+													</button>
+												</div>
+											</div>
+										</form>
+										<div class="yith-wcwl-add-to-wishlist">
+											<div class="yith-wcwl-add-button show">
+												<a href="javascript:void(0);" rel="nofollow" data-product-id="27"
+													data-product-type="variable" class="add_to_wishlist">
+													Add to Wishlist</a>
+											</div>
+										</div>
+										<div class="clear"></div>
+										<div class="product_meta">
+											<span class="posted_in">Model year: <a href="javascript:void(0);"
+													rel="tag">[[*{modelYear}]]</a></span>
+										</div>
+										<div class="product_meta">
+											<span class="posted_in">Categories: <a href="javascript:void(0);"
+													rel="tag">[[*{category.name}]]</a></span>
+										</div>
+										<div class="product_meta">
+											<span class="posted_in">Brands: <a href="javascript:void(0);"
+													rel="tag">[[*{brand.name}]]</a></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="hs-tabs hs-tabs-wrapper">
+								<ul class="tabs dreaming-tabs" role="tablist">
+									<li class="description_tab active" id="tab-title-description" role="tab"
+										aria-controls="tab-description">
+										<a href="#tab-description">Description</a>
+									</li>
+									<li class="additional_information_tab" id="tab-title-additional_information"
+										role="tab" aria-controls="tab-additional_information">
+										<a href="#tab-additional_information">Additional information</a>
+									</li>
+									<li class="reviews_tab" id="tab-title-reviews" role="tab"
+										aria-controls="tab-reviews">
+										<a href="#tab-reviews">Reviews (0)</a>
+									</li>
+								</ul>
+								<div class="hs-Tabs-panel hs-Tabs-panel--description panel entry-content hs-tab"
+									id="tab-description" role="tabpanel" aria-labelledby="tab-title-description">
+									<h2>Description</h2>
+									<div class="container-table">
+										<div class="container-cell">
+											<h2 class="az_custom_heading">[[*{name}]]</h2>
+											<p>[[*{description}]]</p>
+										</div>
+									</div>
+								</div>
+								<div class="hs-Tabs-panel hs-Tabs-panel--additional_information panel entry-content hs-tab"
+									id="tab-additional_information" role="tabpanel"
+									aria-labelledby="tab-title-additional_information">
+									<h2>Additional information</h2>
+									<table class="shop_attributes">
+										<tbody>
+											<tr>
+												<th>Color</th>
+												<td>
+													<p>Blue, Pink, Red, Yellow</p>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="hs-Tabs-panel hs-Tabs-panel--reviews panel entry-content hs-tab"
+									id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews">
+									<div id="reviews" class="hs-Reviews">
+										<div id="comments">
+											<h2 class="hs-Reviews-title">Reviews</h2>
+											<p class="hs-noreviews">There are no reviews yet.</p>
+										</div>
+										<div id="review_form_wrapper">
+											<div id="review_form">
+												<div id="respond" class="comment-respond">
+													<span id="reply-title" class="comment-reply-title">Be the first to
+														review “[[*{name}]]”</span>
+													<form class="comment-form">
+														<p class="comment-notes"><span id="email-notes">Your email
+																adchair will not be published.</span>
+															Required fields are marked <span class="required">*</span>
+														</p>
+														<p class="comment-form-author">
+															<label>Name&nbsp;<span class="required">*</span></label>
+															<input size="30" required="" type="text">
+														</p>
+														<p class="comment-form-email">
+															<label>Email&nbsp;<span class="required">*</span></label>
+															<input size="30" required="" type="email">
+														</p>
+														<p class="comment-form-comment">
+															<label>
+																Your review&nbsp;<span class="required">*</span>
+															</label>
+															<textarea cols="45" rows="8" required=""></textarea>
+														</p>
+														<p class="form-submit">
+															<input class="submit" value="Submit" type="submit">
+														</p>
+													</form>
+												</div><!-- #respond -->
+											</div>
+										</div>
+										<div class="clear"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 col-sm-12 dreaming_related-product">
+						<div class="block-title">
+							<h2 class="product-grid-title">
+								<span>Related Products</span>
+							</h2>
+						</div>
+						<div class="owl-slick owl-products equal-container better-height"
+							data-slick="{&quot;arrows&quot;:false,&quot;slidesMargin&quot;:30,&quot;dots&quot;:true,&quot;infinite&quot;:false,&quot;slidesToShow&quot;:4}"
+							data-responsive="[{&quot;breakpoint&quot;:480,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:768,&quot;settings&quot;:{&quot;slidesToShow&quot;:2,&quot;slidesMargin&quot;:&quot;10&quot;}},{&quot;breakpoint&quot;:992,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1200,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;20&quot;}},{&quot;breakpoint&quot;:1500,&quot;settings&quot;:{&quot;slidesToShow&quot;:3,&quot;slidesMargin&quot;:&quot;30&quot;}}]">
+							<div th:each="p:*{category.product}">
+								<div
+									class="product-item style-01 post-27 product type-product status-publish has-post-thumbnail product_cat-table product_cat-new-arrivals product_cat-lamp product_tag-table product_tag-sock  instock shipping-taxable purchasable product-type-variable has-default-attributes">
+									<div class="product-inner tooltip-left">
+										<div class="product-thumb">
+											<a class="thumb-link" th:href="@{|/product/detail/${p.id}|}" tabindex="0">
+												<img class="img-responsive"
+													th:src="@{|/assets/images/products/${p.image}|}" width="600"
+													height="778">
+											</a>
+											<div class="flash">
+												<span class="onsale" th:if="${p.discount >= 1}">
+													<span class="number">
+														-[[${#numbers.formatDecimal(p.discount,0,'COMMA',0,'POINT')}]]%
+													</span>
+												</span>
+												<span class="onnew"><span class="text">New</span></span>
+											</div>
+											<div class="group-button">
+												<div class="yith-wcwl-add-to-wishlist">
+													<div class="yith-wcwl-add-button show">
+														<a href="javascript:void(0);" class="add_to_wishlist">Add to
+															Wishlist</a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="product-info equal-elem">
+											<h3 class="product-name product_title">
+												<a th:href="@{|/product/detail/${p.id}|}" tabindex="0">[[${p.name}]]</a>
+											</h3>
+											<div class="rating-wapper nostar">
+												<div class="star-rating"><span style="width:0%">Rated <strong
+															class="rating">0</strong> out of 5</span></div>
+												<span class="review">(0)</span>
+											</div>
+											<span class="price">
+												<del class="mr-1" th:if="${p.discount >= 1}">
+													<span class="hs-Price-amount amount">
+														[[${#numbers.formatDecimal(p.listPrice,0,'COMMA',0,'POINT')}]]<span
+															class="hs-Price-currencySymbol">₫</span>
+													</span>
+												</del>
+												<ins>
+													<span class="hs-Price-amount amount">
+														[[${#numbers.formatDecimal((p.listPrice-(p.listPrice*p.discount/100)),0,'COMMA',0,'POINT')}]]<span
+															class="hs-Price-currencySymbol">₫</span>
+													</span>
+												</ins>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+
+</html>

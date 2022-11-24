@@ -6,6 +6,7 @@ import com.store.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
 public class StaffRestController {
     @Autowired
     private StaffRepository staffRepository;
+
+    @Autowired
+    private PasswordEncoder pe;
 
     @GetMapping
     public ResponseEntity<List<Staff>> getAll() {
@@ -35,6 +39,7 @@ public class StaffRestController {
 
     @PostMapping
     public Staff create(@RequestBody Staff staff) {
+        staff.setPassword(pe.encode(staff.getPassword()));
         return staffRepository.save(staff);
     }
 
@@ -42,6 +47,7 @@ public class StaffRestController {
     public ResponseEntity<Staff> update(@PathVariable("id") int id, @RequestBody Staff staff) {
         Staff findId = staffRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Staff not exist with id: " + id));
+        staff.setPassword(pe.encode(staff.getPassword()));
         staffRepository.save(staff);
         return ResponseEntity.ok(findId);
     }

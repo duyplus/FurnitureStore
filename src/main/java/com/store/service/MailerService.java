@@ -1,16 +1,41 @@
 package com.store.service;
 
-import com.store.entity.Mailer;
+import com.store.dto.MailDTO;
 
 import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 
 public interface MailerService {
+    /**
+     * Gửi email
+     *
+     * @param mail thông tin email
+     * @throws MessagingException lỗi gửi email
+     */
+    void send(MailDTO mail) throws MessagingException;
 
-    void send(Mailer mail) throws MessagingException;
-
+    /**
+     * Gửi email đơn giản
+     *
+     * @param to      email người nhận
+     * @param subject tiêu đề email
+     * @param body    nội dung email
+     * @throws MessagingException lỗi gửi email
+     */
     void send(String to, String subject, String body) throws MessagingException;
 
-    void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException;
+    /**
+     * xếp mail vào hàng đợi
+     *
+     * @param mail thông tin email
+     */
+    void queue(MailDTO mail);
 
+    /**
+     * Tạo MailInfo và xếp vào hàng đợi
+     *
+     * @param to      email người nhận
+     * @param subject tiêu đề email
+     * @param body    nội dung email
+     */
+    void queue(String to, String subject, String body);
 }

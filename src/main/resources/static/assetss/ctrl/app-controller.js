@@ -12,6 +12,12 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/product-form", { templateUrl: "admin/pages/product-form.html", controller: "product-detail-ctrl" })
 
         .when("/order-approval", { templateUrl: "admin/pages/order-approval.html", controller: "order-form-ctrl" })
+        .when("/store-list", { templateUrl: "admin/pages/store-list.html", controller: "store-ctrl" })
+        .when("/store-form", { templateUrl: "admin/pages/store-form.html", controller: "store-ctrl" })
+
+        .when("/stock-list", { templateUrl: "admin/pages/stock-list.html", controller: "stock-ctrl" })
+        .when("/stock-form", { templateUrl: "admin/pages/stock-form.html", controller: "stock-ctrl" })
+
         .when("/order-cancel", { templateUrl: "admin/pages/order-cancel.html", controller: "order-ctrl" })
         .when("/order-form", { templateUrl: "admin/pages/order-form.html", controller: "order-ctrl" })
         .when("/order-list", { templateUrl: "admin/pages/order-list.html", controller: "order-ctrl" })
@@ -33,6 +39,49 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/404", { templateUrl: "admin/pages/404.html" })
         .when('/', { templateUrl: 'admin/pages/home.html', })
         .otherwise({ redirectTo: '/' });
+});
+
+
+app.factory('stockService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+app.factory('storeService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
+});
+
+app.factory('categoryService', function () {
+    var savedData = {}
+    function set(data) {
+        savedData = data;
+    }
+    function get() {
+        return savedData;
+    }
+    return {
+        set: set,
+        get: get
+    }
 });
 
 app.directive('convertDate', function () {

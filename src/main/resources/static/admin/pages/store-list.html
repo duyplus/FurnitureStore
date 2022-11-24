@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="page-title">Danh sách cửa hàng</h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">Trang chủ</li>
+                            <li class="breadcrumb-item">Cửa hàng</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th hidden>Mã CH</th>
+                                <th>Tên CH</th>
+                                <th>Điện thoại</th>
+                                <th>Email</th>
+                                <th>Đường</th>
+                                <th>Thành phố</th>
+                                <th>State</th>
+                                <th>Zip Code</th>
+                                <th>Tuỳ chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in items | filter: returnStore('name', 'Store 2')">
+                                <th hidden>{{item.id}}</th>
+                                <th>{{item.name}}</th>
+                                <th>{{item.phone}}</th>
+                                <th>{{item.email}}</th>
+                                <th>{{item.street}}</th>
+                                <th>{{item.city}}</th>
+                                <th>{{item.state}}</th>
+                                <th>{{item.zipCode}}</th>
+                                <th>
+                                    <a href="admin/index.html/#!store-form" ng-click="edit(item)">
+                                        <i class="las la-pen text-info"></i>
+                                    </a>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
