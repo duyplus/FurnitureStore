@@ -9,20 +9,26 @@
 						<ul class="wpml-menu">
 							<li class="menu-item hs-dropdown block-language">
 								<a data-hs="hs-dropdown" href="javascript:void(0);">
-									<img alt="en" src="assets/images/flags/en.png">
-									English
+									Language
 								</a>
 								<span class="toggle-submenu"></span>
 								<ul class="sub-menu">
 									<li class="menu-item">
-										<a href="javascript:void(0);">
+										<a href="javascript:void(0);" onclick="doGTranslate('vi|vi');return false;">
 											<img alt="vn" src="assets/images/flags/vn.png">
 											Vietnamese
+										</a>
+									</li>
+									<li class="menu-item">
+										<a href="javascript:void(0);" onclick="doGTranslate('vi|en');return false;">
+											<img alt="en" src="assets/images/flags/en.png">
+											English
 										</a>
 									</li>
 								</ul>
 							</li>
 						</ul>
+						<div id="google_translate_element2"></div>
 					</div>
 					<div class="header-logo-nav">
 						<div class="header-logo">
@@ -36,7 +42,7 @@
 									<a class="hs-menu-item-title" href="/" title="Home">Home</a>
 								</li>
 								<li class="menu-item menu-item-type-post_type menu-item-229">
-									<a class="hs-menu-item-title" href="/shop" title="Shop">Shop</a>
+									<a class="hs-menu-item-title" href="/shop" title="Shop">Product</a>
 								</li>
 								<li
 									class="menu-item menu-item-type-post_type menu-item-object-megamenu menu-item-228 parent parent-megamenu item-megamenu menu-item-has-children">

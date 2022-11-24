@@ -131,7 +131,6 @@ public class AuthController {
 
     @PostMapping("/auth/my-account")
     public String processMyAccount(Model model, @Validated @ModelAttribute("customer") Customer customer) {
-        customer.setPassword(pe.encode(customer.getPassword()));
         customerService.update(customer);
         return "auth/my-account";
     }
