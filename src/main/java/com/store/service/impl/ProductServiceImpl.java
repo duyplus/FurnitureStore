@@ -55,4 +55,10 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 	}
+
+	@Override
+	public List<Product> findByNameLike(String name, Integer cate) {
+		return dao.findByNameLike(name, cate);
+	}
+
 }

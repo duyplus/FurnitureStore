@@ -16,4 +16,6 @@ public interface ProductService {
 
 	Page<Product> findByField(Integer page, Integer limit, String field, String name);
 
+	List<Product> findByNameLike(String name, Integer cate);
+
 }

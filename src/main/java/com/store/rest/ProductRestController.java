@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -64,5 +65,10 @@ public class ProductRestController {
             return new ResponseEntity<List<TopProduct>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<TopProduct>>(listProduct, HttpStatus.OK);
+    }
+
+    @GetMapping("search/{name}/{cate}")
+    public List<Product> search(@PathVariable("name") String name, @PathVariable("cate") Integer cate){
+        return productRepository.findByNameLike(name, cate);
     }
 }

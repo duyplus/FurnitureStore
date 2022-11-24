@@ -8,11 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM Product p WHERE p.category.id=?1")
     List<Product> findByCategoryId(String cid);
+
+    @Query("SELECT p FROM Product p\n" +
+            "WHERE p.name LIKE %?1% AND p.category.id = ?2")
+    List<Product> findByNameLike(String name, Integer cate);
 
     @Modifying
     @Query(value = "SELECT TOP 8 * FROM (\n" +
