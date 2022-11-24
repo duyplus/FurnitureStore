@@ -37,23 +37,27 @@
                                 <th>Họ và tên</th>
                                 <th>Điện thoại</th>
                                 <th>Email</th>
-                                <th>Role</th>
-                                <th>Cửa hàng</th>
-                                <th>Active</th>
+                                <th>Ngày sinh</th>
+                                <th>Đường</th>
+                                <th>Thành phố</th>
+                                <th>Image</th>
+                                <th>Token</th>
                                 <th>Tuỳ chọn</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in listStaff | filter:search">
+                            <tr ng-repeat="item in listCustomer | filter:search">
                                 <td class="d-none">{{item.id}}</td>
                                 <td>{{item.username}}</td>
                                 <td>{{item.password}}</td>
                                 <td>{{item.fullname}}</td>
                                 <td>{{item.phone}}</td>
                                 <td>{{item.email}}</td>
-                                <td>{{item.managerId }}</td>
-                                <td>{{item.store.name}}</td>
-                                <td>{{item.active}}</td>
+                                <td>{{item.birthday | date:"dd-MM-yyyy"}}</td>
+                                <td>{{item.street }}</td>
+                                <td>{{item.city}}</td>
+                                <td>{{item.image}}</td>
+                                <td>{{item.token}}</td>
                                 <td >
                                     <a  ng-click="doilink(item)" style="cursor: pointer;">
                                         <i class="bx bx-edit-alt me-1"></i> Edit</a>

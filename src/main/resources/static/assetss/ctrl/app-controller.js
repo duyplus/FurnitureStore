@@ -9,9 +9,9 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/company-form", { templateUrl: "admin/pages/company-form.html", controller: "company-ctrl" })
 
         .when("/product-list", { templateUrl: "admin/pages/product-list.html", controller: "product-ctrl" })
-        .when("/product-form", { templateUrl: "admin/pages/product-form.html", controller: "product-ctrl" })
+        .when("/product-form", { templateUrl: "admin/pages/product-form.html", controller: "product-detail-ctrl" })
 
-        .when("/order-approval", { templateUrl: "admin/pages/order-approval.html", controller: "order-ctrl" })
+        .when("/order-approval", { templateUrl: "admin/pages/order-approval.html", controller: "order-form-ctrl" })
         .when("/order-cancel", { templateUrl: "admin/pages/order-cancel.html", controller: "order-ctrl" })
         .when("/order-form", { templateUrl: "admin/pages/order-form.html", controller: "order-ctrl" })
         .when("/order-list", { templateUrl: "admin/pages/order-list.html", controller: "order-ctrl" })
@@ -21,7 +21,10 @@ app.config(function ($routeProvider, $locationProvider) {
         .when("/review-form", { templateUrl: "admin/pages/review-form.html", controller: "review-ctrl" })
 
         .when("/user-list", { templateUrl: "admin/pages/user-list.html", controller: "user-ctrl" })
-        .when("/user-form", { templateUrl: "admin/pages/user-form.html", controller: "user-ctrl" })
+        .when("/user-form", { templateUrl: "admin/pages/user-form.html", controller: "user-form-ctrl" })
+
+        .when("/customer-list", { templateUrl: "admin/pages/customer-list.html", controller: "customer-ctrl" })
+        .when("/customer-form", { templateUrl: "admin/pages/customer-form.html", controller: "customer-form-ctrl" })
 
         .when("/statistic", { templateUrl: "admin/pages/statistic.html", controller: "statistic-ctrl" })
         .when("/setting", { templateUrl: "admin/pages/setting.html", controller: "setting-ctrl" })

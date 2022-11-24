@@ -17,117 +17,53 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
-                    <table class="table table-bordered dt-responsive nowrap">
+                <div class="card-body table-responsive">
+                    <div class="row my-3">
+                        <div class="col-sm-6 form-inline justify-content-start">
+                            <label class="pr-2">Tìm kiếm:</label>
+                            <input type="text" class="form-control" ng-model="search" placeholder="Nhập tìm kiếm..." />
+                        </div>
+                        <div class="col-sm-6 form-inline justify-content-end">
+                            <label class="pr-2">Tìm kiếm:</label>
+                            <input type="text" class="form-control" ng-model="search" placeholder="Nhập tìm kiếm..." />
+                        </div>
+                    </div>
+                    <table class="table table-bordered" data-paging="true" data-filtering="true">
                         <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Category</th>
-                                <th>Pics</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Avai.Color</th>
-                                <th>Action</th>
-                            </tr>
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Trạng thái đơn hàng</th>
+                            <th>Ngày đặt hàng</th>
+                            <th>Ngày giao hàng</th>
+                            <th>Cửa hàng</th>
+                            <th>Nhân viên</th>
+                            <th>Cửa hàng</th>
+                            <th>Tuỳ chọn</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <img src="assets/images/products/img-1.png" alt="" height="40">
-                                    <p class="d-inline-block align-middle mb-0">
-                                        <a href="" class="d-inline-block align-middle mb-0 product-name">Apple
-                                            Watch</a>
-                                        <br>
-                                        <span class="text-muted font-13">Size-05 (Model 2019)</span>
-                                    </p>
-                                </td>
-                                <td>Sports</td>
-                                <td>32</td>
-                                <td>$39</td>
-                                <td><span class="badge badge-soft-warning">Stock</span></td>
-                                <td>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-success"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-danger"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-info"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-dark"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-warning"></i></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <a href="#" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-danger font-18"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/images/products/img-1.png" alt="" height="40">
-                                    <p class="d-inline-block align-middle mb-0">
-                                        <a href="" class="d-inline-block align-middle mb-0 product-name">Morden
-                                            Chair</a>
-                                        <br>
-                                        <span class="text-muted font-13">Size-Mediam (Model 2019)</span>
-                                    </p>
-                                </td>
-                                <td>Interior</td>
-                                <td>10</td>
-                                <td>$99</td>
-                                <td><span class="badge badge-soft-pink">Sold</span></td>
-                                <td>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-success"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-danger"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-info"></i></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <a href="#" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-danger font-18"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="assets/images/products/img-1.png" alt="" height="40">
-                                    <p class="d-inline-block align-middle mb-0">
-                                        <a href="" class="d-inline-block align-middle mb-0 product-name">Reebok
-                                            Shoes</a>
-                                        <br>
-                                        <span class="text-muted font-13">size-08 (Model 2019)</span>
-                                    </p>
-                                </td>
-                                <td>Footwear</td>
-                                <td>24</td>
-                                <td>$49</td>
-                                <td><span class="badge badge-soft-secondary">Stock</span></td>
-                                <td>
-                                    <ul class="list-inline mb-0">
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-success"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-danger"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-info"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-dark"></i></li>
-                                        <li class="list-inline-item align-middle"><i
-                                                class="fas fa-circle text-warning"></i></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <a href="#" class="mr-2"><i class="las la-pen text-info font-18"></i></a>
-                                    <a href="#"><i class="las la-trash-alt text-danger font-18"></i></a>
-                                </td>
-                            </tr>
+                        <tr ng-repeat="item in listOrder | filter:search">
+                            <td >{{item.id}}</td>
+                            <td >{{item.status}}</td>
+                            <td>{{item.orderDate | date:"dd-MM-yyyy"}}</td>
+                            <td>{{item.shippedDate | date:"dd-MM-yyyy"}}</td>
+                            <td>{{item.store.name}}</td>
+                            <td>{{item.staff.email}}</td>
+                            <td>{{item.customer.email}}</td>
+                            <td >
+                                <a  ng-click="doilink(item)" style="cursor: pointer;">
+                                    <i class="bx bx-edit-alt me-1"></i> Edit</a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
+                    <div class="row">
+                        <div class="col-sm-6 ">Đang xem <b>{{curPage}}</b> đến <b>{{itemsPerPage}}</b> trong tổng số
+                            <b>{{items.length}}</b> mục
+                        </div>
+                        <div class="col-sm-6 pagination-sm" uib-pagination total-items="items.length" max-size="maxSize"
+                             ng-model="curPage" rotate="false"></div>
+                    </div>
                 </div>
             </div>
         </div>
