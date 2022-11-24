@@ -7,6 +7,7 @@ import com.store.repository.CustomerRepository;
 import com.store.service.AuthenticationService;
 import com.store.service.CustomerService;
 import com.store.service.MailerService;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public boolean sendResetMail(String email) {
         Customer customer = customerService.findByEmail(email);
         if (customer != null) {
-            String token = RandomString.make(50);
+            String token = RandomString.make(20);
             customer.setToken(token);
             MailDTO mail = getResetMail(email, token);
             mailer.queue(mail);
