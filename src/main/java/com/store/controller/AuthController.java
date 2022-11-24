@@ -110,18 +110,32 @@ public class AuthController {
     }
 
     @GetMapping("/auth/change-password")
-    public String changePasswordForm(Model model) {
+    public String changePasswordForm() {
         return "auth/change-password";
     }
 
     @PostMapping("/auth/change-password")
     public String processChangePassword(Model model, @RequestParam("username") String username,
-                                        @RequestParam("password") String newPassword) {
+                                        @RequestParam("password") String newPassword, HttpServletResponse response) {
         Customer account = customerService.findByUsername(username);
         customerService.changePassword(account, newPassword);
         model.addAttribute("message", "Change password successfully!");
+        response.addHeader("refresh", "2;url=/auth/my-account");
         return "auth/change-password";
     }
+
+    @GetMapping("/auth/my-account")
+    public String myAccount() {
+        return "auth/my-account";
+    }
+
+    @PostMapping("/auth/my-account")
+    public String processMyAccount(Model model, @Validated @ModelAttribute("customer") Customer customer) {
+        customer.setPassword(pe.encode(customer.getPassword()));
+        customerService.update(customer);
+        return "auth/my-account";
+    }
+
 
 //    // OAuth2
 //    @RequestMapping("/oauth2/login/success")

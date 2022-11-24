@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
+    @Query("SELECT o FROM Order o WHERE o.customer.username=?1")
     List<Order> findByCustomer(String username);
 
     @Modifying

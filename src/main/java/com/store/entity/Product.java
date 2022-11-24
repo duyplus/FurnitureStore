@@ -58,5 +58,5 @@ public class Product {
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
-    List<OrderDetail> orderDetails;
+    List<OrderDetail> order_details;
 }

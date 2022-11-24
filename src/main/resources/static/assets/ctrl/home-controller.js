@@ -1,7 +1,6 @@
 const app = angular.module("myApp", []);
 app.constant("HOST", "http://localhost:8080");
 app.config(function ($httpProvider, $qProvider) {
-    // $httpProvider.interceptors.push("authInterceptor");
 });
 app.run(function ($http, $rootScope, HOST) {
     $http.get(`${HOST}/auth/authentication`).then(resp => {
@@ -84,7 +83,7 @@ app.controller("myCtrl", function ($scope, $http, HOST) {
         store: { id: 1},
         orderDate: moment(new Date()).format("yyyy-MM-DD HH:mm:ss"),
         customer: { id: localStorage.getItem("customerID") },
-        get orderDetails() {
+        get order_details() {
             return $scope.cart.items.map(item => {
                 return {
                     product: { id: item.id },
