@@ -27,7 +27,18 @@
                                 <th>Tuỳ chọn</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                        <tr ng-repeat="item in items">
+                            <th >{{item.id}}</th>
+                            <th>{{item.name}}</th>
+                            <th></th>
+                            <th>
+                                <a href="admin/index.html/#!company-form" ng-click="edit(item)">
+                                    <i class="las la-pen text-info"></i>
+                                </a>
+                            </th>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
