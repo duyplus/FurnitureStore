@@ -9,12 +9,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class AuthController {
@@ -130,8 +132,11 @@ public class AuthController {
     }
 
     @PostMapping("/auth/my-account")
-    public String processMyAccount(Model model, @Validated @ModelAttribute("customer") Customer customer) {
-        customerService.update(customer);
+    public String processMyAccount(Model model, @Valid @ModelAttribute("customer") Customer customer, @RequestParam("username") String username, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            customerService.update(customer);
+            model.addAttribute("message", "Change information successfully!");
+        }
         return "auth/my-account";
     }
 
