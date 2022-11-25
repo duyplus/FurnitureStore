@@ -25,12 +25,12 @@ public class Order {
     private Short status;
 
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "order_date", nullable = false)
     private Date orderDate;
 
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "shipped_date")
     private Date shippedDate;
 
@@ -48,5 +48,5 @@ public class Order {
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")
-    List<OrderDetail> orderDetails;
+    List<OrderDetail> order_details;
 }

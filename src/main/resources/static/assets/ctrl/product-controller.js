@@ -1,9 +1,6 @@
 app.controller("product-ctrl", function ($scope, $http) {
     $http.get("/api/product").then(resp=>{
         $scope.listProduct = resp.data;
-        $scope.listProduct.forEach(x => {
-            x.modelYear = new Date(x.modelYear);
-        })
         console.log($scope.listProduct);
     }).catch(error =>{
         console.log(error);
@@ -24,18 +21,18 @@ app.controller("product-detail-ctrl", function ($scope,$http){
     var id = location.href.substring(location.href.lastIndexOf("id=")+3,location.href.length);
 
     $http.get("/api/product").then(resp=>{
+		var id1 = location.href.substring(location.href.lastIndexOf("id=")+3,location.href.length);
         $scope.listProduct = resp.data;
-        $scope.listProduct.forEach(x => {
-            x.modelYear = new Date(x.modelYear);
-        })
-    }).catch(error =>{
-        console.log(error);
-    })
-
-    $http.get("/api/product/"+id).then(resp =>{
-        $scope.product = resp.data;
-        $scope.product.modelYear = new Date($scope.product.modelYear);
-        console.log($scope.product);
+		if(Number(id1) == NaN || id1.length >=10){
+		
+		}else{
+			$http.get("/api/product/"+id1).then(resp =>{
+        		$scope.product = resp.data;
+        		console.log($scope.product);
+    		}).catch(error =>{
+        		console.log(error);
+    		})
+		}
     }).catch(error =>{
         console.log(error);
     })
@@ -61,7 +58,8 @@ app.controller("product-detail-ctrl", function ($scope,$http){
         }
         if($scope.product.name == "" || $scope.product.modelYear == null
             || $scope.product.category.id == null || $scope.product.brand.id ==null
-            || $scope.product.listPrice == null ){
+            || $scope.product.listPrice == null 
+			|| $scope.product.image == null){
             alert("Vui lòng nhập thông tin đầy đủ!");
             return false;
         }
@@ -74,22 +72,23 @@ app.controller("product-detail-ctrl", function ($scope,$http){
         if(!flag){
             return;
         }
-        console.log($scope.pd)
+        console.log(pd)
         if (pd.id == undefined){
             $scope.checkId = "Mã sản phẩm không tồn tại!";
             return;
         }else{
             $scope.checkId = "";
         }
-        $http.put("/api/product",pd).then(resp => {
-            resp.data.modelYear = new Date(resp.data.modelYear);
+        $http.put("/api/product/"+pd.id,pd).then(resp => {
             var index = $scope.listProduct.findIndex( x => x.id == resp.data.id);
             $scope.listProduct[index] = resp.data;
             console.log($scope.listProduct);
             $scope.checkId = "";
             alert("cập nhật thành công!");
             $scope.reset();
-        })
+        }).catch(error =>{
+			console.log(error)
+		})
     }
 
     $scope.create = function (){
@@ -110,9 +109,7 @@ app.controller("product-detail-ctrl", function ($scope,$http){
         if($scope.pd1.images === undefined){
             $scope.pd1.images = null;
         }
-        $scope.pd1.modelYear = new Date($scope.pd1.modelYear);
         $http.post("/api/product",$scope.pd1).then(resp => {
-            resp.data.modelYear = new Date(resp.data.modelYear);
             $scope.listProduct.push(resp.data);
             console.log($scope.listProduct);
             $scope.checkId = "";
@@ -123,7 +120,7 @@ app.controller("product-detail-ctrl", function ($scope,$http){
 
     $scope.reset = function (){
         $scope.product = undefined;
-        console.log($scope.product);
+		location.href= "/admin/index.html#!/product-form";
     }
 
     $scope.detele =function (){
@@ -162,7 +159,7 @@ app.controller("product-detail-ctrl", function ($scope,$http){
 			transformRequest: angular.identity,
 			headers: { 'Content-Type': undefined }
 		}).then(resp => {
-			$scope.product.images =resp.data.name;
+			$scope.product.image =resp.data.name;
 		}).catch(error => {
 			alert("Lỗi upload hình ảnh");
 			console.log("Error", error);

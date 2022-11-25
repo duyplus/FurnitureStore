@@ -25,13 +25,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(JsonNode orderData) {
         ObjectMapper mapper = new ObjectMapper();
-
         Order order = mapper.convertValue(orderData, Order.class);
         orderRepository.save(order);
 
         TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {
         };
-        List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"), type).stream()
+        List<OrderDetail> details = mapper.convertValue(orderData.get("order_details"), type).stream()
                 .peek(d -> d.setOrder(order)).collect(Collectors.toList());
         orderDetailRepository.saveAll(details);
         return order;
