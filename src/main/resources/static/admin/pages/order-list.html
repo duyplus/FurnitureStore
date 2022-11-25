@@ -45,8 +45,8 @@
                         <tr ng-repeat="item in listOrder | filter:search">
                             <td >{{item.id}}</td>
                             <td >{{item.status}}</td>
-                            <td>{{item.orderDate | date:"dd-MM-yyyy"}}</td>
-                            <td>{{item.shippedDate | date:"dd-MM-yyyy"}}</td>
+                            <td>{{item.orderDate}}</td>
+                            <td>{{item.shippedDate }}</td>
                             <td>{{item.store.name}}</td>
                             <td>{{item.staff.email}}</td>
                             <td>{{item.customer.email}}</td>

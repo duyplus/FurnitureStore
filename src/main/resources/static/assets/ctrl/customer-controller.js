@@ -13,29 +13,33 @@ app.controller("customer-ctrl", function ($scope, $http) {
 app.controller("customer-form-ctrl", function ($scope,$http){
     var id = location.href.substring(location.href.lastIndexOf("id=")+3,location.href.length);
     $http.get("/api/customer").then(resp => {
+		var id1 = location.href.substring(location.href.lastIndexOf("id=")+3,location.href.length);
         $scope.listCustomer = resp.data;
-
+		console.log(id1);
         console.log($scope.listCustomer);
+		if(Number(id1) == NaN || id1.length >=10){
+		}else{
+			$http.get("/api/customer/"+id1).then(resp => {
+        		$scope.userdata = resp.data;
+				$scope.userdata.birthday = new Date($scope.userdata.birthday)
+        		console.log($scope.userdata);
+    	})
+		}
     })
-    $http.get("/api/customer/"+id).then(resp => {
-        $scope.userdata = resp.data;
-		$scope.userdata.image = "assets/images/" + $scope.userdata.image;
-		$scope.userdata.birthday = new Date($scope.userdata.birthday)
-        console.log($scope.userdata);
-    })
-
+  
 
     $scope.create = function (){
         var form = angular.copy($scope.userdata);
-        var flag = true;
-        if(form == undefined){
+		if(form == undefined){
             alert("vui lòng nhập thông tin đầy đủ!");
 			return;
         }
+		form.password = "1"
+        var flag = true;
+        
 		if($scope.checkForm()==false){
 			return;
 		}
-		console.log("không ăn")
         $scope.listCustomer.forEach(x =>{
             if(form.username == x.username){
                 alert("username đã tồn tại!");
@@ -68,6 +72,7 @@ app.controller("customer-form-ctrl", function ($scope,$http){
         var flag = true;
         if(form == undefined){
             alert("vui lòng nhập thông tin đầy đủ!");
+			return;
         }
 		if($scope.checkForm()==false){
 			return;
@@ -100,7 +105,12 @@ app.controller("customer-form-ctrl", function ($scope,$http){
         var flag = true;
         if(form == undefined){
             alert("vui lòng nhập thông tin đầy đủ!");
+			return;
         }
+		if(form.username == null){
+			alear("vui lòng username");
+			return;
+		}
         var item = $scope.listCustomer.find(x => x.username == form.username);
         for(let i=0;i<$scope.listCustomer.length;i++){
             if(form.username == $scope.listCustomer[i].username){
@@ -137,7 +147,7 @@ app.controller("customer-form-ctrl", function ($scope,$http){
 			transformRequest: angular.identity,
 			headers: { 'Content-Type': undefined }
 		}).then(resp => {
-			$scope.userdata.image ="assets/images/"+resp.data.name;
+			$scope.userdata.image =resp.data.name;
 		}).catch(error => {
 			alert("Lỗi upload hình ảnh");
 			console.log("Error", error);
@@ -147,13 +157,13 @@ app.controller("customer-form-ctrl", function ($scope,$http){
 	$scope.checkForm = function(){
 		if($scope.userdata.username == undefined 
 			|| $scope.userdata.username == ""
-			|| $scope.userdata.password == undefined || $scope.userdata.password ==""
 			|| $scope.userdata.fullname == undefined || $scope.userdata.fullname ==""
 			|| $scope.userdata.phone == undefined || $scope.userdata.phone == "" 
 			|| $scope.userdata.birthday == undefined || $scope.userdata.birthday == null
 			|| $scope.userdata.street == undefined || $scope.userdata.street == ""
 			|| $scope.userdata.city == undefined || $scope.userdata.city == ""
 			|| $scope.userdata.email == undefined || $scope.userdata.email == ""){
+				console.log($scope.userdata)
 				alert("vui lòng nhập nhập đầy đủ thông tin!");
 				return false;
 		}

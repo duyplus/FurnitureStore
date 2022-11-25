@@ -33,7 +33,6 @@
                             <tr>
                                 <th class="d-none">ID người dùng</th>
                                 <th>Tên người dùng</th>
-                                <th>Mật khẩu</th>
                                 <th>Họ và tên</th>
                                 <th>Điện thoại</th>
                                 <th>Email</th>
@@ -49,7 +48,6 @@
                             <tr ng-repeat="item in listCustomer | filter:search">
                                 <td class="d-none">{{item.id}}</td>
                                 <td>{{item.username}}</td>
-                                <td>{{item.password}}</td>
                                 <td>{{item.fullname}}</td>
                                 <td>{{item.phone}}</td>
                                 <td>{{item.email}}</td>
