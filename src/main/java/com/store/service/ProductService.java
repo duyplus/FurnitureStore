@@ -15,5 +15,4 @@ public interface ProductService {
 	Page<Product> findAll(Integer page, Integer limit);
 
 	Page<Product> findByField(Integer page, Integer limit, String field, String name);
-
 }

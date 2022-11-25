@@ -5,13 +5,12 @@ import com.store.exception.ResourceNotFoundException;
 import com.store.repository.ProductRepository;
 import com.store.temporary.TopProduct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
@@ -64,5 +63,30 @@ public class ProductRestController {
             return new ResponseEntity<List<TopProduct>>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<List<TopProduct>>(listProduct, HttpStatus.OK);
+    }
+
+//    @GetMapping("search/{name}{cate}")
+//    public List<Product> search(@PathVariable("name") Optional<String> name, @PathVariable("cate") Optional<String> cate){
+//        if (name.isPresent()){
+//            if(cate.isPresent()) {
+//                return productRepository.findByNameLikeAndCateNameLike(name.orElse(" "), cate.orElse(" "));
+//            }else{
+//                return productRepository.findByNameLike(name.orElse(" "));
+//            }
+//        }
+//        return productRepository.findAll();
+//    }
+
+    @GetMapping("search")
+    public List<Product> searchAll(){
+        return productRepository.findAll();
+    }
+
+    @GetMapping("search/{name}")
+    public List<Product> searchProdName(@PathVariable("name") Optional<String> name){
+        if (name.isPresent()) {
+            return productRepository.findByNameLike(name.orElse(""));
+        }
+        return productRepository.findAll();
     }
 }
