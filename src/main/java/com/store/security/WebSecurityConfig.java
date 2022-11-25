@@ -106,12 +106,8 @@ public class WebSecurityConfig {
         // Quyền truy cập OpenAPIDefinition
         http.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll();
         // Quyền yêu cầu truy cập
-        http.authorizeRequests().antMatchers("/", "/auth/login", "/auth/register", "/auth/forgot-password").permitAll();
+        http.authorizeRequests().antMatchers("/", "/auth/login", "/auth/register", "/auth/forgot-password", "/auth/reset-password").permitAll();
         http.authorizeRequests().antMatchers("/order/**", "/auth/change-password").authenticated();
-//        http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN").anyRequest().permitAll();
-//        http.authorizeRequests()
-//                .antMatchers("/**", "/admin/**", "/auth/**", "/api/**").permitAll()
-//                .anyRequest().authenticated();
         // Đăng nhập
         http.formLogin().loginPage("/auth/login").loginProcessingUrl("/auth/login")
                 .defaultSuccessUrl("/", false).failureUrl("/auth/login/error");

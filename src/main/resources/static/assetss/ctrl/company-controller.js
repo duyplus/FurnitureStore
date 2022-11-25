@@ -1,9 +1,7 @@
-    app.controller('category-ctrl', function($scope, $http, $location, categoryService) {
-    const url = "http://localhost:8080/api/category";
-
+app.controller("company-ctrl", function ($scope, $rootScope, $location, $http, $filter, companyService) {
+    var url = "http://localhost:8080/api/brand";
     $scope.items = [];
-    $scope.item = categoryService.get();
-
+    $scope.item = companyService.get();
 
     $http.get(url).then(function(response) {
         $scope.items = response.data;
@@ -11,11 +9,12 @@
 
     $scope.reset = () =>{
         $scope.item = {};
-        categoryService.set($scope.item)
+        companyService.set($scope.item);
     }
 
     $scope.edit = (item) => {
-        categoryService.set(item)
+        companyService.set(item);
+        console.log(companyService.get())
     }
 
     $scope.create = () => {
@@ -28,7 +27,6 @@
             console.log("Error:" + error)
         })
     }
-
     $scope.update = () => {
         const item = angular.copy($scope.item);
         $http.put(`${url}/${item.id}`, item).then((response) => {
@@ -40,7 +38,6 @@
             console.log("Error:" + error)
         })
     }
-
     $scope.delete = () => {
         $http.delete(`${url}/${$scope.item.id}`).then(response => {
             const index = $scope.items.findIndex(p => p.id = $scope.item.id);
@@ -51,4 +48,5 @@
             console.log("Error:" + error)
         })
     }
-})
+
+    })

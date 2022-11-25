@@ -1,14 +1,13 @@
 const app = angular.module("myApp", []);
 app.constant("HOST", "http://localhost:8080");
 app.config(function ($httpProvider, $qProvider) {
-    // $httpProvider.interceptors.push("authInterceptor");
 });
 app.run(function ($http, $rootScope, HOST) {
     $http.get(`${HOST}/auth/authentication`).then(resp => {
         if (resp.data) {
             $auth = $rootScope.$auth = resp.data;
             $http.defaults.headers.common["Authorization"] = $auth.token;
-            console.log($auth)
+            localStorage.setItem("customerID", JSON.stringify($auth.customer.id));
         }
     });
 });
@@ -79,16 +78,19 @@ app.controller("myCtrl", function ($scope, $http, HOST) {
     // Luu gio hang
     $scope.cart.loadFromLocalStorage();
     $scope.order = {
-        orderDate: new Date(),
-        customer: { id: $("#user").text() },
-        get orderDetails() {
+        status: 1,
+        staff: { id: 1},
+        store: { id: 1},
+        orderDate: moment(new Date()).format("yyyy-MM-DD HH:mm:ss"),
+        customer: { id: localStorage.getItem("customerID") },
+        get order_details() {
             return $scope.cart.items.map(item => {
                 return {
                     product: { id: item.id },
-                    price: item.listPrice,
+                    listPrice: item.listPrice,
                     quantity: item.qty,
                     discount: item.discount,
-                    description: item.description
+                    description: item.description,
                 }
             });
         },
@@ -105,4 +107,5 @@ app.controller("myCtrl", function ($scope, $http, HOST) {
             })
         }
     }
+
 })

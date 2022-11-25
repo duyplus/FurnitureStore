@@ -9,20 +9,26 @@
 						<ul class="wpml-menu">
 							<li class="menu-item hs-dropdown block-language">
 								<a data-hs="hs-dropdown" href="javascript:void(0);">
-									<img alt="en" src="assets/images/flags/en.png">
-									English
+									Language
 								</a>
 								<span class="toggle-submenu"></span>
 								<ul class="sub-menu">
 									<li class="menu-item">
-										<a href="javascript:void(0);">
+										<a href="javascript:void(0);" onclick="doGTranslate('vi|vi');return false;">
 											<img alt="vn" src="assets/images/flags/vn.png">
 											Vietnamese
+										</a>
+									</li>
+									<li class="menu-item">
+										<a href="javascript:void(0);" onclick="doGTranslate('vi|en');return false;">
+											<img alt="en" src="assets/images/flags/en.png">
+											English
 										</a>
 									</li>
 								</ul>
 							</li>
 						</ul>
+						<div id="google_translate_element2"></div>
 					</div>
 					<div class="header-logo-nav">
 						<div class="header-logo">
@@ -36,7 +42,7 @@
 									<a class="hs-menu-item-title" href="/" title="Home">Home</a>
 								</li>
 								<li class="menu-item menu-item-type-post_type menu-item-229">
-									<a class="hs-menu-item-title" href="/shop" title="Shop">Shop</a>
+									<a class="hs-menu-item-title" href="/shop" title="Shop">Product</a>
 								</li>
 								<li
 									class="menu-item menu-item-type-post_type menu-item-object-megamenu menu-item-228 parent parent-megamenu item-megamenu menu-item-has-children">
@@ -204,21 +210,24 @@
 									<ul class="sub-menu">
 										<th:block sec:authorize="!isAuthenticated()">
 											<li class="menu-item is-active">
-												<a th:href="@{auth/login}">Login</a>
+												<a th:href="@{/auth/login}">Login</a>
 											</li>
 											<li class="menu-item is-active">
-												<a th:href="@{auth/register}">Register</a>
+												<a th:href="@{/auth/register}">Register</a>
+											</li>
+											<li class="menu-item is-active">
+												<a th:href="@{/auth/forgot-password}">Forgot password?</a>
 											</li>
 										</th:block>
 										<th:block sec:authorize="isAuthenticated()">
-											<li class="menu-item is-active">
-												<a th:href="@{/admin}">Dashboard</a>
-											</li>
-											<li class="menu-item">
-												<a th:href="@{/my-account}">Account details</a>
-											</li>
 											<li class="menu-item">
 												<a th:href="@{/order/list}">Orders</a>
+											</li>
+											<li class="menu-item">
+												<a th:href="@{/auth/my-account}">Account details</a>
+											</li>
+											<li class="menu-item is-active">
+												<a th:href="@{/auth/change-password}">Change password</a>
 											</li>
 											<li class="menu-item">
 												<a th:href="@{/auth/logout}">Logout</a>
@@ -264,6 +273,7 @@
 												<a class="button hs-forward" th:href="@{/cart/view}">View cart</a>
 												<a class="button checkout hs-forward"
 													th:href="@{/cart/checkout}">Checkout</a>
+<!--												<span sec:authorize="!isAuthenticated()">Vui lòng đang nhập để thanh toán <a class="" th:href="@{/auth/login}">Đăng nhập ngay</a></span>-->
 											</p>
 										</div>
 									</div>
@@ -348,23 +358,26 @@
 							<span class="flaticon-profile"></span>
 						</a>
 						<ul class="sub-menu">
-							<th:block th:unless="${#request.remoteUser}">
+							<th:block sec:authorize="!isAuthenticated()">
 								<li class="menu-item hs-myaccount-navigation-link">
 									<a th:href="@{/auth/login/form}">Login</a>
 								</li>
 								<li class="menu-item hs-myaccount-navigation-link">
 									<a th:href="@{/auth/register}">Register</a>
 								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/forgot-password}">Forgot password?</a>
+								</li>
 							</th:block>
-							<th:block th:if="${#request.remoteUser}">
+							<th:block sec:authorize="isAuthenticated()">
 								<li class="menu-item hs-myaccount-navigation-link is-active">
-									<a th:href="@{/admin}">Dashboard</a>
-								</li>
-								<li class="menu-item hs-myaccount-navigation-link">
-									<a href="javascript:void(0);">Account details</a>
-								</li>
-								<li class="menu-item hs-myaccount-navigation-link">
 									<a th:href="@{/order/list}">Orders</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/my-account}">Account details</a>
+								</li>
+								<li class="menu-item hs-myaccount-navigation-link">
+									<a th:href="@{/auth/change-password}">Change password</a>
 								</li>
 								<li class="menu-item hs-myaccount-navigation-link">
 									<a th:href="@{/auth/logout}">Logout</a>

@@ -1,6 +1,7 @@
 package com.store.controller;
 
 import com.store.repository.OrderRepository;
+import com.store.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ public class OrderController {
     OrderRepository orderRepository;
 
     @Autowired
+    OrderService orderService;
+
+    @Autowired
     HttpServletRequest request;
 
     @RequestMapping("/cart/view")
@@ -26,14 +30,14 @@ public class OrderController {
 
     @RequestMapping("/cart/checkout")
     public String checkout() {
-        if (!(request.isSecure())) {
-            return "redirect:/auth/login";
-        }
+//        if (!(request.isUserInRole("CUST"))) {
+//            return "redirect:/auth/login";
+//        }
         return "cart/checkout";
     }
 
     @RequestMapping("/order/list")
-    public String list(Model model, HttpServletRequest request) {
+    public String list(Model model) {
         String username = request.getRemoteUser();
         model.addAttribute("orders", orderRepository.findByCustomer(username));
         return "order/list";
@@ -41,11 +45,11 @@ public class OrderController {
 
     @RequestMapping("/order/detail/{id}")
     public String detail(@PathVariable("id") int id, Model model) {
-        model.addAttribute("order", orderRepository.findById(id));
+        model.addAttribute("order", orderService.findById(id));
         return "order/detail";
     }
 
-    @GetMapping("wishlist")
+    @GetMapping("/cart/wishlist")
     public String wishlist() {
         return "cart/wishlist";
     }

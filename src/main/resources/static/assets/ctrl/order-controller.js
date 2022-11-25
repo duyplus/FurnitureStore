@@ -1,10 +1,6 @@
 app.controller("order-ctrl", function ($scope, $http) {
     $http.get("/api/order").then(resp => {
         $scope.listOrder = resp.data;
-        $scope.listOrder.forEach(x => {
-            x.orderDate = new Date(x.orderDate);
-            x.shippedDate = new Date(x.shippedDate);
-        })
         $scope.listStatus = [1,2,3,4];
         console.log($scope.listOrder);
     })
@@ -18,11 +14,7 @@ app.controller("order-form-ctrl", function ($scope,$http){
     var id = location.href.substring(location.href.lastIndexOf("id=")+3,location.href.length);
     $http.get("/api/order").then(resp => {
         $scope.listOrder = resp.data;
-        $scope.listOrder.forEach(x => {
-            x.orderDate = new Date(x.orderDate);
-            x.shippedDate = new Date(x.shippedDate);
-        })
-        console.log($scope.listOrder);
+
         $scope.listStatus = [
             {
                 "id": 1,
@@ -44,13 +36,13 @@ app.controller("order-form-ctrl", function ($scope,$http){
     })
     $http.get("/api/order/"+id).then(resp => {
         $scope.form = resp.data;
-        $scope.form.orderDate = new Date(resp.data.orderDate);
-        $scope.form.shippedDate = new Date(resp.data.shippedDate);
-        console.log($scope.form);
     })
 
     $scope.update = function (){
         var form = angular.copy($scope.form);
+        console.log($scope.form);
+        form.orderDate =  moment(form.orderDate).format("YYYY-MM-DD HH:mm");
+        form.shippedDate = moment(form.shippedDate).format("YYYY-MM-DD HH:mm");
         var flag = true;
         if(form == undefined){
             alert("Vui lòng chọn đơn hàng!");

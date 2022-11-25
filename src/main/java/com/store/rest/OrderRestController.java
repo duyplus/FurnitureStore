@@ -1,11 +1,12 @@
 package com.store.rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.store.entity.Order;
 import com.store.exception.ResourceNotFoundException;
 import com.store.repository.OrderRepository;
+import com.store.service.OrderService;
 import com.store.temporary.OrderDATE;
 import com.store.temporary.TopOrder;
-import com.store.temporary.TopProduct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ import java.util.List;
 public class OrderRestController {
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    OrderService orderService;
 
     @GetMapping
     public ResponseEntity<List<Order>> getAll() {
@@ -36,9 +40,14 @@ public class OrderRestController {
         return ResponseEntity.ok(findId);
     }
 
+//    @PostMapping
+//    public Order create(@RequestBody Order order) {
+//        return orderRepository.save(order);
+//    }
+
     @PostMapping
-    public Order create(@RequestBody Order order) {
-        return orderRepository.save(order);
+    public Order create(@RequestBody JsonNode orderData) {
+        return orderService.create(orderData);
     }
 
     @PutMapping("{id}")

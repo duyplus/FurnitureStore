@@ -23,4 +23,6 @@ public interface CustomerService {
     Customer findByEmail(String email);
 
     Customer findByToken(String token);
+
+    void changePassword(Customer customer, String newPassword);
 }
