@@ -15,10 +15,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM Product p WHERE p.category.id=?1")
     List<Product> findByCategoryId(String cid);
 
-    @Query("SELECT p FROM Product p\n" +
-            "WHERE p.name LIKE %?1% AND p.category.id = ?2")
-    List<Product> findByNameLike(String name, Integer cate);
+    @Query("SELECT p FROM Product p WHERE p.name LIKE %?1% AND p.category.name LIKE %?2%")
+    List<Product> findByNameLikeAndCateNameLike(String name, String cate);
 
+    @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
+    List<Product> findByNameLike(String name);
     @Modifying
     @Query(value = "SELECT TOP 8 * FROM (\n" +
             "    SELECT DISTINCT p.id, p.name, p.model_year, p.list_price, p.discount, p.image, p.description, p.brand_id, p.category_id \n" +
@@ -27,6 +28,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             ") AS t\n" +
             "ORDER BY NEWID()", nativeQuery = true)
     List<Product> randProdInOd();
+
+    @Modifying
+    @Query(value = "SELECT * FROM  products\n" +
+            "ORDER BY NEWID()", nativeQuery = true)
+    List<Product> randProdFeatured();
 
     @Modifying
     @Query(value = "SELECT TOP 8 * FROM (\n" +
