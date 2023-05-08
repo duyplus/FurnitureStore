@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +48,6 @@ public class HomeController {
             model.addAttribute("items4", list4);
             List<Category> list5 = categoryRepository.findAll();
             model.addAttribute("items5", list5);
-
         }
         return "index";
     }
@@ -81,7 +82,6 @@ public class HomeController {
 
     @GetMapping("contact")
     public String contact(Model model) {
-
         List<Category> list5 = categoryRepository.findAll();
         model.addAttribute("items5", list5);
         return "contact";

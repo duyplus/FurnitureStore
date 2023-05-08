@@ -35,7 +35,12 @@
                     </div>
                     <div class="form-group col-sm-12 mb-3">
                         <label class="form-label">Status:</label>
-                        <input th:field="*{status}" class="form-control" disabled>
+                        <th:block th:switch="*{status}">
+                            <input th:case="'1'" value="Pending" class="form-control" disabled>
+                            <input th:case="'2'" value="Processing" class="form-control" disabled>
+                            <input th:case="'3'" value="Cancelled" class="form-control" disabled>
+                            <input th:case="'4'" value="Completed" class="form-control" disabled>
+                        </th:block>
                     </div>
                 </div>
             </div>
@@ -52,22 +57,22 @@
                                     <table class="shop_table shop_table_responsive cart hs-cart-form__contents"
                                            cellspacing="0">
                                         <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                        </tr>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Total</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="detail:*{order_details}" th:object="${detail}">
-                                            <td class="align-middle">[[*{product.id}]]</td>
-                                            <td class="align-middle">[[*{product.name}]]</td>
-                                            <td class="align-middle">[[*{#numbers.formatDecimal(listPrice,0,'COMMA',0,'POINT')}]]₫</td>
-                                            <td class="align-middle">[[*{quantity}]]</td>
-                                            <td class="align-middle">[[*{#numbers.formatDecimal(listPrice*quantity,0,'COMMA',0,'POINT')}]]₫</td>
-                                        </tr>
+                                            <tr th:each="detail:*{order_details}" th:object="${detail}">
+                                                <td class="align-middle text-center">[[*{product.id}]]</td>
+                                                <td class="align-middle text-center">[[*{product.name}]]</td>
+                                                <td class="align-middle text-center">[[*{#numbers.formatDecimal(listPrice,0,'COMMA',0,'POINT')}]]₫</td>
+                                                <td class="align-middle text-center">[[*{quantity}]]</td>
+                                                <td class="align-middle text-center">[[*{#numbers.formatDecimal(listPrice*quantity,0,'COMMA',0,'POINT')}]]₫</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

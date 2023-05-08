@@ -41,7 +41,12 @@
                                         <td class="align-middle text-center">[[${state.index}+1]]</td>
                                         <td class="align-middle text-center">[[${order.id}]]</td>
                                         <td class="align-middle text-center">[[${order.orderDate}]]</td>
-                                        <td class="align-middle text-center">[[${order.status}]]</td>
+                                        <td class="align-middle text-center" th:switch="${order.status}">
+                                            <b th:case="'1'">Pending</b>
+                                            <b th:case="'2'">Processing</b>
+                                            <b th:case="'3'">Cancelled</b>
+                                            <b th:case="'4'">Completed</b>
+                                        </td>
                                         <td class="align-middle text-center">
                                             <a th:href="@{|/order/detail/${order.id}|}"
                                                class="btn btn-sm btn-default border-0"
